@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1618A8AA1E807EED00CE4939 /* mazeone.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1618A8A91E807EED00CE4939 /* mazeone.txt */; };
+		1618A8AC1E8083C500CE4939 /* mazetwo.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1618A8AB1E8083C500CE4939 /* mazetwo.txt */; };
+		1618A8AE1E808AEB00CE4939 /* mazethree.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1618A8AD1E808AEB00CE4939 /* mazethree.txt */; };
 		165F7E6C1E803B7000D067E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165F7E6B1E803B7000D067E9 /* AppDelegate.swift */; };
 		165F7E6E1E803B7000D067E9 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 165F7E6D1E803B7000D067E9 /* GameScene.sks */; };
 		165F7E701E803B7000D067E9 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 165F7E6F1E803B7000D067E9 /* Actions.sks */; };
@@ -15,6 +18,7 @@
 		165F7E761E803B7000D067E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 165F7E751E803B7000D067E9 /* Assets.xcassets */; };
 		165F7E791E803B7000D067E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 165F7E771E803B7000D067E9 /* Main.storyboard */; };
 		165F7E841E803B7000D067E9 /* MazeSolverAITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165F7E831E803B7000D067E9 /* MazeSolverAITests.swift */; };
+		165F7E8F1E80465100D067E9 /* MazeTileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 165F7E8E1E80465100D067E9 /* MazeTileSet.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,6 +32,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1618A8A91E807EED00CE4939 /* mazeone.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mazeone.txt; sourceTree = "<group>"; };
+		1618A8AB1E8083C500CE4939 /* mazetwo.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mazetwo.txt; sourceTree = "<group>"; };
+		1618A8AD1E808AEB00CE4939 /* mazethree.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mazethree.txt; sourceTree = "<group>"; };
 		165F7E681E803B7000D067E9 /* MazeSolverAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MazeSolverAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		165F7E6B1E803B7000D067E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		165F7E6D1E803B7000D067E9 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -40,6 +47,7 @@
 		165F7E7F1E803B7000D067E9 /* MazeSolverAITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MazeSolverAITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		165F7E831E803B7000D067E9 /* MazeSolverAITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MazeSolverAITests.swift; sourceTree = "<group>"; };
 		165F7E851E803B7000D067E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		165F7E8E1E80465100D067E9 /* MazeTileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MazeTileSet.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +68,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1618A8AF1E808BAA00CE4939 /* MazeMap */ = {
+			isa = PBXGroup;
+			children = (
+				1618A8A91E807EED00CE4939 /* mazeone.txt */,
+				1618A8AB1E8083C500CE4939 /* mazetwo.txt */,
+				1618A8AD1E808AEB00CE4939 /* mazethree.txt */,
+			);
+			name = MazeMap;
+			sourceTree = "<group>";
+		};
+		1618A8B01E808BC800CE4939 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				165F7E6B1E803B7000D067E9 /* AppDelegate.swift */,
+				165F7E751E803B7000D067E9 /* Assets.xcassets */,
+				165F7E7A1E803B7000D067E9 /* Info.plist */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		1618A8B11E808BF200CE4939 /* Generic Algorithm */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Generic Algorithm";
+			sourceTree = "<group>";
+		};
 		165F7E5F1E803B7000D067E9 = {
 			isa = PBXGroup;
 			children = (
@@ -81,14 +116,15 @@
 		165F7E6A1E803B7000D067E9 /* MazeSolverAI */ = {
 			isa = PBXGroup;
 			children = (
-				165F7E6B1E803B7000D067E9 /* AppDelegate.swift */,
+				1618A8B11E808BF200CE4939 /* Generic Algorithm */,
+				1618A8B01E808BC800CE4939 /* Utils */,
 				165F7E6D1E803B7000D067E9 /* GameScene.sks */,
 				165F7E6F1E803B7000D067E9 /* Actions.sks */,
 				165F7E711E803B7000D067E9 /* GameScene.swift */,
 				165F7E731E803B7000D067E9 /* ViewController.swift */,
-				165F7E751E803B7000D067E9 /* Assets.xcassets */,
 				165F7E771E803B7000D067E9 /* Main.storyboard */,
-				165F7E7A1E803B7000D067E9 /* Info.plist */,
+				165F7E8E1E80465100D067E9 /* MazeTileSet.sks */,
+				1618A8AF1E808BAA00CE4939 /* MazeMap */,
 			);
 			path = MazeSolverAI;
 			sourceTree = "<group>";
@@ -187,9 +223,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1618A8AE1E808AEB00CE4939 /* mazethree.txt in Resources */,
+				165F7E8F1E80465100D067E9 /* MazeTileSet.sks in Resources */,
+				1618A8AC1E8083C500CE4939 /* mazetwo.txt in Resources */,
 				165F7E6E1E803B7000D067E9 /* GameScene.sks in Resources */,
 				165F7E761E803B7000D067E9 /* Assets.xcassets in Resources */,
 				165F7E701E803B7000D067E9 /* Actions.sks in Resources */,
+				1618A8AA1E807EED00CE4939 /* mazeone.txt in Resources */,
 				165F7E791E803B7000D067E9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -338,6 +378,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 4Y7L6J7Z75;
 				INFOPLIST_FILE = MazeSolverAI/Info.plist;
@@ -352,6 +393,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 4Y7L6J7Z75;
 				INFOPLIST_FILE = MazeSolverAI/Info.plist;
@@ -413,6 +455,7 @@
 				165F7E8A1E803B7000D067E9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		165F7E8B1E803B7000D067E9 /* Build configuration list for PBXNativeTarget "MazeSolverAITests" */ = {
 			isa = XCConfigurationList;
@@ -421,6 +464,7 @@
 				165F7E8D1E803B7000D067E9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
