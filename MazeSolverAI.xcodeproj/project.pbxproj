@@ -10,6 +10,7 @@
 		1618A8AA1E807EED00CE4939 /* mazeone.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1618A8A91E807EED00CE4939 /* mazeone.txt */; };
 		1618A8AC1E8083C500CE4939 /* mazetwo.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1618A8AB1E8083C500CE4939 /* mazetwo.txt */; };
 		1618A8AE1E808AEB00CE4939 /* mazethree.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1618A8AD1E808AEB00CE4939 /* mazethree.txt */; };
+		1618A8B31E80A31D00CE4939 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1618A8B21E80A31D00CE4939 /* Constants.swift */; };
 		165F7E6C1E803B7000D067E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165F7E6B1E803B7000D067E9 /* AppDelegate.swift */; };
 		165F7E6E1E803B7000D067E9 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 165F7E6D1E803B7000D067E9 /* GameScene.sks */; };
 		165F7E701E803B7000D067E9 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 165F7E6F1E803B7000D067E9 /* Actions.sks */; };
@@ -35,6 +36,7 @@
 		1618A8A91E807EED00CE4939 /* mazeone.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mazeone.txt; sourceTree = "<group>"; };
 		1618A8AB1E8083C500CE4939 /* mazetwo.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mazetwo.txt; sourceTree = "<group>"; };
 		1618A8AD1E808AEB00CE4939 /* mazethree.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mazethree.txt; sourceTree = "<group>"; };
+		1618A8B21E80A31D00CE4939 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		165F7E681E803B7000D067E9 /* MazeSolverAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MazeSolverAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		165F7E6B1E803B7000D067E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		165F7E6D1E803B7000D067E9 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 		1618A8B01E808BC800CE4939 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				1618A8B21E80A31D00CE4939 /* Constants.swift */,
 				165F7E6B1E803B7000D067E9 /* AppDelegate.swift */,
 				165F7E751E803B7000D067E9 /* Assets.xcassets */,
 				165F7E7A1E803B7000D067E9 /* Info.plist */,
@@ -251,6 +254,7 @@
 				165F7E741E803B7000D067E9 /* ViewController.swift in Sources */,
 				165F7E721E803B7000D067E9 /* GameScene.swift in Sources */,
 				165F7E6C1E803B7000D067E9 /* AppDelegate.swift in Sources */,
+				1618A8B31E80A31D00CE4939 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
