@@ -21,11 +21,15 @@ class ViewController: NSViewController {
     @IBOutlet var mutationSlider: NSSlider!
     @IBOutlet var mazesPopUpButton: NSPopUpButton!
     
+    var individium : Individual?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         stopButton.isEnabled = false
         
+        individium = Individual(newDna: DNA(0.5), start: Coordinate(0,1), dest: Coordinate(12,12))
+        print(individium?.getPath().description)
         
         if let view = self.skView {
             // Load the SKScene from 'GameScene.sks'
@@ -40,7 +44,7 @@ class ViewController: NSViewController {
             view.ignoresSiblingOrder = true
             view.wantsLayer = true
             view.showsFPS = true
-            view.showsNodeCount = true
+            //view.showsNodeCount = true
         }
     }
     
