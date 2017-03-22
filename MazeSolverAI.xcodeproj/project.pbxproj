@@ -14,6 +14,7 @@
 		1618A8B51E813BFF00CE4939 /* DNA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1618A8B41E813BFF00CE4939 /* DNA.swift */; };
 		1618A8B71E813D8800CE4939 /* Population.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1618A8B61E813D8800CE4939 /* Population.swift */; };
 		1618A8B91E813E7200CE4939 /* Individual.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1618A8B81E813E7200CE4939 /* Individual.swift */; };
+		1618A8BD1E8180C400CE4939 /* Labyrinth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1618A8BC1E8180C400CE4939 /* Labyrinth.swift */; };
 		165F7E6C1E803B7000D067E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165F7E6B1E803B7000D067E9 /* AppDelegate.swift */; };
 		165F7E6E1E803B7000D067E9 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 165F7E6D1E803B7000D067E9 /* GameScene.sks */; };
 		165F7E701E803B7000D067E9 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 165F7E6F1E803B7000D067E9 /* Actions.sks */; };
@@ -43,6 +44,7 @@
 		1618A8B41E813BFF00CE4939 /* DNA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DNA.swift; sourceTree = "<group>"; };
 		1618A8B61E813D8800CE4939 /* Population.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Population.swift; sourceTree = "<group>"; };
 		1618A8B81E813E7200CE4939 /* Individual.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Individual.swift; sourceTree = "<group>"; };
+		1618A8BC1E8180C400CE4939 /* Labyrinth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Labyrinth.swift; sourceTree = "<group>"; };
 		165F7E681E803B7000D067E9 /* MazeSolverAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MazeSolverAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		165F7E6B1E803B7000D067E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		165F7E6D1E803B7000D067E9 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				1618A8B41E813BFF00CE4939 /* DNA.swift */,
 				1618A8B61E813D8800CE4939 /* Population.swift */,
 				1618A8B81E813E7200CE4939 /* Individual.swift */,
+				1618A8BC1E8180C400CE4939 /* Labyrinth.swift */,
 			);
 			name = "Generic Algorithm";
 			sourceTree = "<group>";
@@ -128,12 +131,12 @@
 		165F7E6A1E803B7000D067E9 /* MazeSolverAI */ = {
 			isa = PBXGroup;
 			children = (
+				165F7E731E803B7000D067E9 /* ViewController.swift */,
 				1618A8B11E808BF200CE4939 /* Generic Algorithm */,
 				1618A8B01E808BC800CE4939 /* Utils */,
 				165F7E6D1E803B7000D067E9 /* GameScene.sks */,
 				165F7E6F1E803B7000D067E9 /* Actions.sks */,
 				165F7E711E803B7000D067E9 /* GameScene.swift */,
-				165F7E731E803B7000D067E9 /* ViewController.swift */,
 				165F7E771E803B7000D067E9 /* Main.storyboard */,
 				165F7E8E1E80465100D067E9 /* MazeTileSet.sks */,
 				1618A8AF1E808BAA00CE4939 /* MazeMap */,
@@ -267,6 +270,7 @@
 				1618A8B31E80A31D00CE4939 /* Constants.swift in Sources */,
 				1618A8B51E813BFF00CE4939 /* DNA.swift in Sources */,
 				1618A8B91E813E7200CE4939 /* Individual.swift in Sources */,
+				1618A8BD1E8180C400CE4939 /* Labyrinth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

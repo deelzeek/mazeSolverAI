@@ -26,6 +26,7 @@ extension Int
     }
 }
 
+
 enum MazeLevels: String {
     case Level1 = "mazeone.txt"
     case Level2 = "mazetwo.txt"
@@ -33,6 +34,9 @@ enum MazeLevels: String {
 }
 
 
-enum NextStep {
-    case North, South, East, West, Stay
+enum NextStep: Int {
+    case North = 0, South = 1, East = 2 , West =  3, Stay = 4
 }
+
+let MAX_MOVES = 30
+

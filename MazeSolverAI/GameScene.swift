@@ -13,23 +13,21 @@ class GameScene: SKScene {
     
     private var tile : SKTileMapNode?
     private var level: MazeLevels = .Level1
+    public var maze = Array<Array<Int>>()
     //private var spinnyNode : SKShapeNode?
     
     
     override func didMove(to view: SKView) {
         
+    }
+    
+    override func sceneDidLoad() {
         // Get label node from scene and store it for use later
         self.tile = self.childNode(withName: "tileMap") as? SKTileMapNode
         
         if let _ = self.tile {
             updateMaze(.Level1)
-            
         }
-        
-        // Create shape node to use during mouse interaction
-        //let w = (self.size.width + self.size.height) * 0.05
-        //self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
-        
     }
     
     
@@ -45,13 +43,13 @@ class GameScene: SKScene {
         
     }
     
-    func updateMaze(_ level: MazeLevels) {
+    public func getMaze() -> Array<Array<Int>> {
+        return self.maze
+    }
+    
+    public func updateMaze(_ level: MazeLevels) {
         self.level = level
         
-//        if level == MazeLevels.Level3 {
-//            let newTile = SKTileMapNode(tileSet: self.tile!.tileSet, columns: 24, rows: 24, tileSize: self.tile!.mapSize)
-//            self.tile = newTile
-//        }
         
         let path = Bundle.main.path(forResource: level.rawValue, ofType: nil)
         
@@ -59,23 +57,91 @@ class GameScene: SKScene {
             let fileContents = try String(contentsOfFile:path!, encoding: String.Encoding.utf8)
             let lines = fileContents.components(separatedBy: "\n")
 
-            for row in 0..<lines.count {
+            for row in 0..<lines.count-1 {
                 let items = lines[row].components(separatedBy: " ")
+                var columnArray = Array<Int>()
                 
                 for column in 0..<items.count {
                     
                     if items[column] != "00" {
                         let aTile = self.tile?.tileSet.tileGroups.first(where: { $0.name == "Grass"})
-                        
                         self.tile?.setTileGroup(aTile, forColumn: column, row: 7 - row)
-                        
+                        columnArray.append(1)
                         
                     } else {
                         self.tile?.setTileGroup(nil, forColumn: column, row: 7 - row)
+                        columnArray.append(0)
                     }
                     
                 }
+                
+                self.maze.append(columnArray)
             }
+            
+            //print(self.maze)
+            Labyrinth.initShared(maze: self.maze)
+            //print("Laby: \(Labyrinth.sharedInstance)")
+        } catch {
+            //print("Error loading map")
+        }
+    }
+    
+    public func updateMaze(fittest: Individual) {
+        
+        let closestX = fittest.getSuccessTil().x
+        let closestY = fittest.getSuccessTil().y
+        
+        
+        let path = Bundle.main.path(forResource: level.rawValue, ofType: nil)
+        
+        do {
+            let fileContents = try String(contentsOfFile:path!, encoding: String.Encoding.utf8)
+            let lines = fileContents.components(separatedBy: "\n")
+            
+            for row in 0..<lines.count-1 {
+                let items = lines[row].components(separatedBy: " ")
+                var columnArray = Array<Int>()
+                
+                for column in 0..<items.count {
+                    
+                    if items[column] != "00" {
+                        let aTile = self.tile?.tileSet.tileGroups.first(where: { $0.name == "Grass"})
+                        self.tile?.setTileGroup(aTile, forColumn: column, row: 7 - row)
+                        columnArray.append(1)
+                        
+                    } else {
+                        self.tile?.setTileGroup(nil, forColumn: column, row: 7 - row)
+                        columnArray.append(0)
+                    }
+                    
+                }
+                
+                self.maze.append(columnArray)
+            }
+            
+            for n in 0..<fittest.getGene().count {
+                let xValue = fittest.getPath()[n].x
+                let yValue = fittest.getPath()[n].y
+                //print("xVal: \(xValue), yVal: \(yValue)")
+                if xValue != closestX && yValue != closestY {
+                    if maze[xValue][yValue] == 0 {
+                        let aTile = self.tile?.tileSet.tileGroups.first(where: { $0.name == "Water"})
+                        self.tile?.setTileGroup(aTile, forColumn: yValue, row:  7 - xValue)
+                    }
+                } else {
+                    let aTile = self.tile?.tileSet.tileGroups.first(where: { $0.name == "Water"})
+                    self.tile?.setTileGroup(aTile, forColumn: yValue, row:  7 - xValue)
+                    if yValue == 6 && xValue == 6 {
+                        self.tile?.setTileGroup(aTile, forColumn: 7, row:  1)
+                        //print("really?")
+                    }
+                    break
+                }
+            }
+            
+            //print(self.maze)
+            Labyrinth.initShared(maze: self.maze)
+            //print("Laby: \(Labyrinth.sharedInstance)")
         } catch {
             print("Error loading map")
         }

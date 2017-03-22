@@ -10,18 +10,25 @@ import Foundation
 
 class DNA {
     
-    let MAX_MOVES = 30
-    
     var mutationLevel: Double
     var genes: [NextStep] = []
     
-    init(_ mutationLevel: Double) {
+    init(mutationLevel: Double) {
         self.mutationLevel = mutationLevel
         randomChromosomes()
     }
     
+    init(mutationLevel: Double, chromosomes: [NextStep]) {
+        self.genes = chromosomes
+        self.mutationLevel = mutationLevel
+    }
+    
     public func mutate() {
-        
+        let randChrome = Int.random(range: (0..<genes.count))
+        let randNextStep = Int.random(range: (0..<5))
+        //print("b4 mutation: \(self.genes[randChrome])")
+        self.genes[randChrome] = NextStep(rawValue: randNextStep)!
+        //print("after: \(self.genes[randChrome])")
     }
     
     public func toString() -> String {
@@ -40,8 +47,7 @@ class DNA {
         
         var chromosomes : [NextStep] = []
         
-        
-        for current in 1...MAX_MOVES {
+        for _ in 1...MAX_MOVES {
             let random = Int.random(range: Range(0...3))
             
             switch random {

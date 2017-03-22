@@ -801,6 +801,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="generationLabel" destination="frx-QU-ahT" id="KWQ-bZ-Q6u"/>
                         <outlet property="mazesPopUpButton" destination="1HB-lb-skN" id="4Nf-rP-Feq"/>
                         <outlet property="mutationSlider" destination="0H0-4h-pEv" id="lOj-YZ-6W9"/>
                         <outlet property="mutationText" destination="SEN-ar-jrV" id="Dr6-Gh-RaE"/>
