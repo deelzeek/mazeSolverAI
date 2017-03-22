@@ -131,12 +131,11 @@
 		165F7E6A1E803B7000D067E9 /* MazeSolverAI */ = {
 			isa = PBXGroup;
 			children = (
-				165F7E731E803B7000D067E9 /* ViewController.swift */,
 				1618A8B11E808BF200CE4939 /* Generic Algorithm */,
 				1618A8B01E808BC800CE4939 /* Utils */,
+				16C804DD1E8221E700B59CC8 /* Controllers */,
 				165F7E6D1E803B7000D067E9 /* GameScene.sks */,
 				165F7E6F1E803B7000D067E9 /* Actions.sks */,
-				165F7E711E803B7000D067E9 /* GameScene.swift */,
 				165F7E771E803B7000D067E9 /* Main.storyboard */,
 				165F7E8E1E80465100D067E9 /* MazeTileSet.sks */,
 				1618A8AF1E808BAA00CE4939 /* MazeMap */,
@@ -151,6 +150,15 @@
 				165F7E851E803B7000D067E9 /* Info.plist */,
 			);
 			path = MazeSolverAITests;
+			sourceTree = "<group>";
+		};
+		16C804DD1E8221E700B59CC8 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				165F7E731E803B7000D067E9 /* ViewController.swift */,
+				165F7E711E803B7000D067E9 /* GameScene.swift */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

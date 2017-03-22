@@ -14,6 +14,7 @@ class GameScene: SKScene {
     private var tile : SKTileMapNode?
     private var level: MazeLevels = .Level1
     public var maze = Array<Array<Int>>()
+    private var levelPeaks : LevelPeaks = LevelPeaks(level: .Level1)
     //private var spinnyNode : SKShapeNode?
     
     
@@ -47,35 +48,44 @@ class GameScene: SKScene {
         return self.maze
     }
     
+    public func clearScreen() {
+        for rows in 0..<16 {
+            for columns in 0..<16 {
+             self.tile?.setTileGroup(nil, forColumn: columns, row: rows)
+            }
+        }
+    }
+    
     public func updateMaze(_ level: MazeLevels) {
         self.level = level
-        
+        self.levelPeaks = LevelPeaks(level: level)
         
         let path = Bundle.main.path(forResource: level.rawValue, ofType: nil)
         
         do {
             let fileContents = try String(contentsOfFile:path!, encoding: String.Encoding.utf8)
             let lines = fileContents.components(separatedBy: "\n")
-
+            self.maze.removeAll()
             for row in 0..<lines.count-1 {
                 let items = lines[row].components(separatedBy: " ")
                 var columnArray = Array<Int>()
-                
+                //print("lines: \(lines.count), items: \(items.count)")
                 for column in 0..<items.count {
                     
                     if items[column] != "00" {
                         let aTile = self.tile?.tileSet.tileGroups.first(where: { $0.name == "Grass"})
-                        self.tile?.setTileGroup(aTile, forColumn: column, row: 7 - row)
+                        self.tile?.setTileGroup(aTile, forColumn: column, row: (levelPeaks.rows - 1) - row)
                         columnArray.append(1)
                         
                     } else {
-                        self.tile?.setTileGroup(nil, forColumn: column, row: 7 - row)
+                        self.tile?.setTileGroup(nil, forColumn: column, row: (levelPeaks.rows - 1) - row)
                         columnArray.append(0)
                     }
                     
                 }
                 
                 self.maze.append(columnArray)
+                
             }
             
             //print(self.maze)
@@ -91,7 +101,7 @@ class GameScene: SKScene {
         let closestX = fittest.getSuccessTil().x
         let closestY = fittest.getSuccessTil().y
         
-        
+        self.maze.removeAll()
         let path = Bundle.main.path(forResource: level.rawValue, ofType: nil)
         
         do {
@@ -106,11 +116,11 @@ class GameScene: SKScene {
                     
                     if items[column] != "00" {
                         let aTile = self.tile?.tileSet.tileGroups.first(where: { $0.name == "Grass"})
-                        self.tile?.setTileGroup(aTile, forColumn: column, row: 7 - row)
+                        self.tile?.setTileGroup(aTile, forColumn: column, row: (levelPeaks.columns - 1) - row)
                         columnArray.append(1)
                         
                     } else {
-                        self.tile?.setTileGroup(nil, forColumn: column, row: 7 - row)
+                        self.tile?.setTileGroup(nil, forColumn: column, row: (levelPeaks.columns - 1) - row)
                         columnArray.append(0)
                     }
                     
@@ -126,13 +136,13 @@ class GameScene: SKScene {
                 if xValue != closestX && yValue != closestY {
                     if maze[xValue][yValue] == 0 {
                         let aTile = self.tile?.tileSet.tileGroups.first(where: { $0.name == "Water"})
-                        self.tile?.setTileGroup(aTile, forColumn: yValue, row:  7 - xValue)
+                        self.tile?.setTileGroup(aTile, forColumn: yValue, row:  (levelPeaks.columns - 1) - xValue)
                     }
                 } else {
                     let aTile = self.tile?.tileSet.tileGroups.first(where: { $0.name == "Water"})
-                    self.tile?.setTileGroup(aTile, forColumn: yValue, row:  7 - xValue)
-                    if yValue == 6 && xValue == 6 {
-                        self.tile?.setTileGroup(aTile, forColumn: 7, row:  1)
+                    self.tile?.setTileGroup(aTile, forColumn: yValue, row:  (levelPeaks.columns - 1) - xValue)
+                    if yValue == levelPeaks.end.x && xValue == (levelPeaks.end.y - 1) {
+                        self.tile?.setTileGroup(aTile, forColumn: levelPeaks.end.y, row:  (levelPeaks.rows - 1) - levelPeaks.end.x)
                         //print("really?")
                     }
                     break

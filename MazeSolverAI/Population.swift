@@ -16,11 +16,14 @@ class Population {
     var mutationLevel: Double
     var fitness = 100
     var bestWithFit : Individual?
+    var levelPeaks : LevelPeaks
 
     
-    init(number ofPopulation:Int, mutationLevel: Double) {
+    init(number ofPopulation:Int, mutationLevel: Double, levelPeaks: LevelPeaks) {
         self.populationAmount = ofPopulation
         self.mutationLevel = mutationLevel
+        self.levelPeaks = levelPeaks
+        
         createPopulation()
     }
     
@@ -28,32 +31,24 @@ class Population {
     
     private func createPopulation() {
         for _ in 0..<populationAmount {
-            let individium = Individual(mutaLevel: self.mutationLevel , start: Coordinate(1, 0), dest: Coordinate(6, 7))
-//            let chromosomes : [NextStep] = [
-//                NextStep.East, NextStep.South, NextStep.East,
-//                NextStep.East, NextStep.South, NextStep.East, NextStep.East, NextStep.East, NextStep.South, NextStep.South, NextStep.South, NextStep.East, NextStep.East, NextStep.South, NextStep.East,
-//                NextStep.East, NextStep.South, NextStep.East, NextStep.East, NextStep.East, NextStep.South, NextStep.South, NextStep.South, NextStep.East, NextStep.South, NextStep.East
-//            ]
-//            let dna : DNA = DNA(mutationLevel: 0.1, chromosomes: chromosomes)
-//            let individium = Individual(newDna: dna, start: Coordinate(1,0), dest: Coordinate(6,7))
+            let individium = Individual(mutaLevel: self.mutationLevel , start: levelPeaks.start, dest: levelPeaks.end)
             population.append(individium)
         }
     }
     
     public func start(completion:@escaping ((_ finished: Bool, _ fittest : Individual)->())) {
-        for indi in 0..<populationAmount {
-            population[indi].checkPath(maze: Labyrinth.sharedInstance.maze)
-            let fitn = population[indi].fitness()
+        for individ in 0..<populationAmount {
+            population[individ].checkPath(maze: Labyrinth.sharedInstance.maze)
+            let fitn = population[individ].fitness()
             if self.fitness > fitn {
-                //print("Fitness:\(fitness) indi: \(indi)")
                 self.fitness = fitn
-                self.bestWithFit = population[indi]
+                self.bestWithFit = population[individ]
             }
         }
         
         crossover(completion: {
             _ in
-            print("Best of generation: \(self.bestWithFit?.getSuccessTil())")
+            //print("Best of generation: \(self.bestWithFit?.getSuccessTil())")
             completion(true, self.bestWithFit!)
         })
         
@@ -101,10 +96,9 @@ class Population {
                 newGene.append(motherChromo[index])
             }
             
-            let offspring: Individual = Individual(newDna: DNA(mutationLevel: 0.5, chromosomes: newGene), start: Coordinate(1, 0), dest: Coordinate(6, 7))
+            let offspring: Individual = Individual(newDna: DNA(mutationLevel: 0.1, chromosomes: newGene), start: levelPeaks.start, dest: levelPeaks.end)
             offspring.mutate()
             newPopulation.append(offspring)
-            //print("split: \(split), father: \(fatherChromo), mother: \(motherChromo), new: \(newGene)")
             
         }
         self.population.removeAll()

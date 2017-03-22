@@ -96,7 +96,7 @@ class Individual {
             case .West:
                 yMove = -1
             default:
-                break
+                continue
             }
 
             let lastX = pathTemp.last?.x
@@ -119,7 +119,7 @@ class Individual {
         let columns = maze.count
         let rows = maze[0].count
         //var temp = self.startPosition
-        
+        //print("col: \(columns), rows:\(rows)")
         for num in 0..<path.count {
             //var temp = self.startPosition
             let pathX = Int(self.path[num].x)

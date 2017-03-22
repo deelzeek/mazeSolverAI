@@ -21,21 +21,22 @@ class ViewController: NSViewController {
     @IBOutlet var mutationSlider: NSSlider!
     @IBOutlet var mazesPopUpButton: NSPopUpButton!
     @IBOutlet var generationLabel: NSTextField!
+    @IBOutlet var bingoLabel: NSTextField!
     
     var individium : Individual?
     var pop : Population?
     var startOn : Bool = false
     var generation: Int = 1
     var scene: GameScene?
+    var level: MazeLevels?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         stopButton.isEnabled = false
-        
-        
-        //individium = Individual(newDna: DNA(0.5), start: Coordinate(0,1), dest: Coordinate(12,12))
-        //print(individium?.getPath().description)
+        bingoLabel.isHidden = true
+        level = MazeLevels.Level1
+
         
         if let view = self.skView {
             // Load the SKScene from 'GameScene.sks'
@@ -50,13 +51,15 @@ class ViewController: NSViewController {
             view.ignoresSiblingOrder = true
             view.wantsLayer = true
             view.showsFPS = true
-            //view.showsNodeCount = true
         }
     }
     
     @IBAction func startAction(_ sender: Any) {
         startOn = true
-        pop = Population(number: 1000, mutationLevel: 0.1)
+        bingoLabel.isHidden = true
+        mazesPopUpButton.isEnabled = false
+        
+        pop = Population(number: 1000, mutationLevel: 0.1, levelPeaks: LevelPeaks(level: level!))
         
         let queue = DispatchQueue(label: "com.usmani.deel", qos: .userInitiated)
         
@@ -64,24 +67,16 @@ class ViewController: NSViewController {
             while self.startOn {
                 self.pop?.start(completion: {
                     (finished, fittest) in
+                    
                     let x  = fittest.getSuccessTil().x
                     let y = fittest.getSuccessTil().y
-                    if x == 6 && y == 7 {
+                    if x == 14 && y == 15 {
                         self.startOn = false
+                        self.bingoLabel.isHidden = false
                     }
-                    //let rand = Int.random(range: (0..<3))
-                    DispatchQueue.main.async {
+                    
+                    DispatchQueue.main.sync {
                         self.generationLabel.stringValue = "Generation #\(self.generation)"
-//                        switch rand {
-//                        case 0:
-//                            self.scene?.updateMaze(MazeLevels.Level1)
-//                        case 1:
-//                            self.scene?.updateMaze(MazeLevels.Level2)
-//                        case 2:
-//                            self.scene?.updateMaze(MazeLevels.Level3)
-//                        default:
-//                             self.scene?.updateMaze(MazeLevels.Level3)
-//                        }
                         self.scene?.updateMaze(fittest: fittest)
                         
                     }
@@ -91,8 +86,8 @@ class ViewController: NSViewController {
                 self.generation = self.generation + 1
             }
         }
-
         
+
         stopButton.isEnabled = true
         startButton.isEnabled = false
     }
@@ -102,10 +97,26 @@ class ViewController: NSViewController {
         startOn = false
         startButton.isEnabled = true
         stopButton.isEnabled = false
+        mazesPopUpButton.isEnabled = true
+        bingoLabel.isHidden = true
+        scene?.updateMaze(level!)
     }
     
     @IBAction func mazePopUpAction(_ sender: Any) {
-        print(self.mazesPopUpButton.indexOfSelectedItem)
+        let levelChosen: Int = self.mazesPopUpButton.indexOfSelectedItem
+        switch levelChosen {
+        case 0:
+            self.level = MazeLevels.Level1
+        case 1:
+            self.level = MazeLevels.Level2
+        case 2:
+            self.level = MazeLevels.Level3
+        default:
+            self.level = MazeLevels.Level1
+        }
+        self.scene?.clearScreen()
+        self.scene?.updateMaze(self.level!)
+                
     }
     
     override func awakeFromNib() {
