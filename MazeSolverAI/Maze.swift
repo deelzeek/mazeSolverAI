@@ -72,6 +72,10 @@ class Maze {
          */
         let mazeBuilder = MazeBuilder(maze: self)
         let mazeWalls = mazeBuilder.mazeWallsForRemoval()
+        for node in mazeWalls {
+            print("MazeWall -> x: \(node.gridPosition.x), y: \(node.gridPosition.y)")
+        }
+        print("END")
         graph.remove(mazeWalls)
     }
 }

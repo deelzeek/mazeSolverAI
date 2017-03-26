@@ -14,7 +14,7 @@ class GameScene: SKScene {
     //private var tile : SKTileMapNode?
     
     /// Holds information about the maze.
-    var maze = Maze()
+    var maze: Maze!
     
     /// Whether the solution is currently displayed or not.
     var hasSolutionDisplayed = false
@@ -29,6 +29,8 @@ class GameScene: SKScene {
      */
     @nonobjc var spriteNodes = [[SKSpriteNode?]]()
     
+    var population: Population?
+    var mazeArrRep: Array<Array<Int>>?
     
 //    private var level: MazeLevels = .Level1
 //    public var maze = Array<Array<Int>>()
@@ -39,22 +41,11 @@ class GameScene: SKScene {
     
     
     override func didMove(to view: SKView) {
-         createMaze()
+         //createMaze()
     }
     
     override func sceneDidLoad() {
-//        // Get label node from scene and store it for use later
-//        self.tile = self.childNode(withName: "tileMap") as? SKTileMapNode
-//        
-//        if let _ = self.tile {
-//            updateMaze(.Level1)
-//        }
-//        
-//        let mazeOne = loadMazeLevels(level: MazeLevels.Level1)
-//        let mazeTwo = loadMazeLevels(level: MazeLevels.Level2)
-//        let mazeThree = loadMazeLevels(level: MazeLevels.Level3)
-//        
-//        Labyrinth.initShared(maze1: mazeOne, maze2: mazeTwo, maze3: mazeThree)
+        createMaze()
         
     }
     
@@ -143,145 +134,15 @@ class GameScene: SKScene {
 //        }
 //    }
     
-    public func updateMaze(_ level: MazeLevels) {
-//        self.level = level
-//        self.levelPeaks = LevelPeaks(level: level)
-//        //self.maze.removeAll()
-//        let path = Bundle.main.path(forResource: level.rawValue, ofType: nil)
-//        
-//        do {
-//            let fileContents = try String(contentsOfFile:path!, encoding: String.Encoding.utf8)
-//            let lines = fileContents.components(separatedBy: "\n")
-//            self.maze.removeAll()
-//            for row in 0..<lines.count-1 {
-//                let items = lines[row].components(separatedBy: " ")
-//                var columnArray = Array<Int>()
-//                //print("lines: \(lines.count), items: \(items.count)")
-//                for column in 0..<items.count {
-//                    
-//                    if items[column] != "00" {
-//                        let aTile = self.tile?.tileSet.tileGroups.first(where: { $0.name == "Grass"})
-//                        self.tile?.setTileGroup(aTile, forColumn: column, row: (levelPeaks.rows - 1) - row)
-//                        columnArray.append(1)
-//                        
-//                    } else {
-//                        self.tile?.setTileGroup(nil, forColumn: column, row: (levelPeaks.rows - 1) - row)
-//                        columnArray.append(0)
-//                    }
-//                    
-//                }
-//                
-//                self.maze.append(columnArray)
-//                
-//            }
-//            
-//            //print(self.maze)
-//            //Labyrinth.initShared(maze: self.maze)
-//            //print("Laby: \(Labyrinth.sharedInstance)")
-//        } catch {
-//            //print("Error loading map")
-//        }
-//        
-//        //print(self.maze)
-        
+    public func newMaze(population: Int, mutation: Double) {
+        createMaze()
+        createPopulation(number: population, mutation: mutation)
     }
     
     public func updateMaze(fittest: Individual) {
         
-//        let closestX = fittest.getSuccessTil().x
-//        let closestY = fittest.getSuccessTil().y
-//        
-//        //self.maze.removeAll()
-//        let path = Bundle.main.path(forResource: level.rawValue, ofType: nil)
-//        
-//        do {
-//            let fileContents = try String(contentsOfFile:path!, encoding: String.Encoding.utf8)
-//            let lines = fileContents.components(separatedBy: "\n")
-//            
-//            for row in 0..<lines.count-1 {
-//                let items = lines[row].components(separatedBy: " ")
-//                var columnArray = Array<Int>()
-//                
-//                for column in 0..<items.count {
-//                    
-//                    if items[column] != "00" {
-//                        let aTile = self.tile?.tileSet.tileGroups.first(where: { $0.name == "Grass"})
-//                        self.tile?.setTileGroup(aTile, forColumn: column, row: (levelPeaks.columns - 1) - row)
-//                        columnArray.append(1)
-//                        
-//                    } else {
-//                        self.tile?.setTileGroup(nil, forColumn: column, row: (levelPeaks.columns - 1) - row)
-//                        columnArray.append(0)
-//                    }
-//                    
-//                }
-//                
-//                //self.maze.append(columnArray)
-//            }
-//            
-//            for n in 0..<fittest.getGene().count {
-//                let xValue = fittest.getPath()[n].x
-//                let yValue = fittest.getPath()[n].y
-//                //print("xVal: \(xValue), yVal: \(yValue)")
-//                if xValue != closestX && yValue != closestY {
-//                    if maze[xValue][yValue] == 0 {
-//                        let aTile = self.tile?.tileSet.tileGroups.first(where: { $0.name == "Water"})
-//                        self.tile?.setTileGroup(aTile, forColumn: yValue, row:  (levelPeaks.columns - 1) - xValue)
-//                    }
-//                } else {
-//                    let aTile = self.tile?.tileSet.tileGroups.first(where: { $0.name == "Water"})
-//                    self.tile?.setTileGroup(aTile, forColumn: yValue, row:  (levelPeaks.columns - 1) - xValue)
-//                    if yValue == levelPeaks.end.x && xValue == (levelPeaks.end.y - 1) {
-//                        self.tile?.setTileGroup(aTile, forColumn: levelPeaks.end.y, row:  (levelPeaks.rows - 1) - levelPeaks.end.x)
-//                        //print("really?")
-//                    }
-//                    break
-//                }
-//            }
-//            
-//            //print(self.maze)
-//            //Labyrinth.initShared(maze: self.maze)
-//            //print("Laby: \(Labyrinth.sharedInstance)")
-//        } catch {
-//            print("Error loading map")
-//        }
     }
     
-    
-//    override func keyDown(with event: NSEvent) {
-//        switch event.keyCode {
-//        
-//        case 126:
-//            switch self.level {
-//            case .Level1:
-//                updateMaze(.Level3)
-//            case .Level2:
-//                updateMaze(.Level1)
-//            case .Level3:
-//                updateMaze(.Level2)
-//            default:
-//                updateMaze(.Level1)
-//            }
-//            
-//        case 125:
-//            switch self.level {
-//            case .Level1:
-//                updateMaze(.Level2)
-//            case .Level2:
-//                updateMaze(.Level3)
-//            case .Level3:
-//                updateMaze(.Level1)
-//            default:
-//                updateMaze(.Level1)
-//            }
-//            
-//        default:
-//            print("keyDown: \(event.characters!) keyCode: \(event.keyCode)")
-//            print(tile?.tileSet.tileGroups.first?.name)
-//           
-//        }
-//    }
-//    
     
     override func update(_ currentTime: TimeInterval) {
         // Called before each frame is rendered
@@ -300,6 +161,7 @@ class GameScene: SKScene {
          */
         let mazeParentNode = childNode(withName: "maze") as! SKSpriteNode
         let cellDimension = mazeParentNode.size.height / CGFloat(Maze.dimensions)
+        self.mazeArrRep = arrayReprOfMaze()
         
         // Remove existing maze cell sprites from the previous maze.
         mazeParentNode.removeAllChildren()
@@ -311,7 +173,9 @@ class GameScene: SKScene {
             let x = Int(node.gridPosition.x)
             let y = Int(node.gridPosition.y)
             
-            print("generateMaze -> x: \(x), y: \(y)")
+            self.mazeArrRep?[x][y] = 0
+            
+            //print("generateMaze -> x: \(x), y: \(y)")
             
             /*
              Create a maze sprite node and place the sprite at the correct
@@ -333,6 +197,7 @@ class GameScene: SKScene {
              */
             spriteNodes[x][y] = mazeNode
         }
+        
         
         // Grab the coordinates of the start and end maze sprite nodes.
         let startNodeX = Int(maze.startNode.gridPosition.x)
@@ -356,7 +221,6 @@ class GameScene: SKScene {
         let actionInterval = 0.005
         
         
-        
         /*
          Light up each sprite in the solution sequence, except for the
          start and end nodes.
@@ -366,7 +230,7 @@ class GameScene: SKScene {
             let x = Int(solution[i].gridPosition.x)
             let y = Int(solution[i].gridPosition.y)
             
-            print("x: \(x), y: \(y)")
+           // print("x: \(x), y: \(y)")
             
             /*
              Increment the action delay so this sprite is highlighted
@@ -387,6 +251,65 @@ class GameScene: SKScene {
             }
         }
     }
+    
+    public func start(completion:@escaping ((_ finished: Bool, _ fittest : Individual, _ bestFitness: Int, _ worstFitness: Int)->())) {
+        self.population?.start({
+            (finished, fittest, bestie, worstie) in
+            completion(finished, fittest, bestie, worstie)
+        }
+        )
+    }
+    
+    func drawFittest(_ solution: [GKGridGraphNode]) {
+        
+        generateMazeNodes()
+        
+        let actionDelay: TimeInterval = 0
+        
+        for i in 1...(solution.count - 2) {
+            // Grab the position of the maze graph node.
+            let x = Int(solution[i].gridPosition.x)
+            let y = Int(solution[i].gridPosition.y)
+            
+            // Run the animation action on the maze sprite node.
+            if let mazeNode = spriteNodes[x][y] {
+                mazeNode.run(
+                    SKAction.sequence(
+                        [SKAction.colorize(with: SKColor.gray, colorBlendFactor: 1, duration: 0),
+                         SKAction.wait(forDuration: actionDelay),
+                         SKAction.colorize(with: SKColor.white, colorBlendFactor: 1, duration: 0),
+                         SKAction.colorize(with: SKColor.lightGray, colorBlendFactor: 1, duration: 0)]
+                    )
+                )
+            }
+        }
+    }
+    
+    func createPopulation(number ofPopulation: Int, mutation percent:Double) {
+        // Grab the coordinates of the start and end maze sprite nodes.
+        population = nil
+        let startNodeX = Int(maze.startNode.gridPosition.x)
+        let startNodeY = Int(maze.startNode.gridPosition.y)
+        let endNodeX   = Int(maze.endNode.gridPosition.x)
+        let endNodeY   = Int(maze.endNode.gridPosition.y)
+        population = Population(number: ofPopulation, mutationLevel: percent, startPos: Coordinate(startNodeX, startNodeY), endPos: Coordinate(endNodeX, endNodeY), maze: self.mazeArrRep!)
+    }
+    
+    private func arrayReprOfMaze() -> Array<Array<Int>> {
+        var mazeCurrent = Array<Array<Int>>()
+        
+        for _ in 0...14 {
+            var arr = Array<Int>()
+            for _ in 0...14 {
+                arr.append(1)
+            }
+            mazeCurrent.append(arr)
+        }
+        
+        return mazeCurrent
+    }
+
+
 }
 
 // MARK: OS X Input Handling
@@ -399,6 +322,7 @@ class GameScene: SKScene {
          */
         override func keyDown(with _: NSEvent) {
             createOrSolveMaze()
+            print("self.mazearr: \(self.mazeArrRep)")
         }
         
         /**
@@ -407,6 +331,7 @@ class GameScene: SKScene {
          */
         override func mouseDown(with _: NSEvent) {
             createOrSolveMaze()
+            print("self.mazearr: \(self.mazeArrRep)")
         }
     }
 #endif

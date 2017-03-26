@@ -18,17 +18,18 @@ class Population {
     var worstFitness = 0
     var bestWithFit : Individual?
     var worstWithFit: Individual?
-    var levelPeaks : LevelPeaks
-    var level: MazeLevels?
+    var startPos: Coordinate!
+    var endPos: Coordinate!
     var average: [Int] = []
+    var mazeCurrent: Array<Array<Int>>!
 
     
-    init(number ofPopulation:Int, mutationLevel: Double, levelPeaks: LevelPeaks, level: MazeLevels) {
+    init(number ofPopulation:Int, mutationLevel: Double, startPos: Coordinate, endPos: Coordinate, maze: Array<Array<Int>>) {
         self.populationAmount = ofPopulation
         self.mutationLevel = mutationLevel
-        self.levelPeaks = levelPeaks
-        self.level = level
-        
+        self.startPos = startPos
+        self.endPos = endPos
+        self.mazeCurrent = maze
         createPopulation()
     }
     
@@ -36,28 +37,16 @@ class Population {
     
     private func createPopulation() {
         for _ in 0..<populationAmount {
-            let individium = Individual(mutaLevel: self.mutationLevel , start: levelPeaks.start, dest: levelPeaks.end)
+            let individium = Individual(mutaLevel: self.mutationLevel , start: self.startPos, dest: self.endPos)
             population.append(individium)
         }
     }
     
-    public func start(completion:@escaping ((_ finished: Bool, _ fittest : Individual, _ bestFitness: Int, _ worstFitness: Int)->())) {
-        var mazeCurrent = Array<Array<Int>>()
-        
-        switch self.level! {
-        case .Level1:
-            mazeCurrent = Labyrinth.sharedInstanceLevel1.maze
-        case .Level2:
-            mazeCurrent = Labyrinth.sharedInstanceLevel2.maze
-        case .Level3:
-            mazeCurrent = Labyrinth.sharedInstanceLevel3.maze
-        default:
-            break
-        }
-        
+    public func start(_ completion:@escaping ((_ finished: Bool, _ fittest : Individual, _ bestFitness: Int, _ worstFitness: Int)->())) {
+
 
         for individ in 0..<populationAmount {
-            population[individ].checkPath(maze: mazeCurrent)
+            population[individ].checkPath(maze: mazeCurrent!)
             let fitn = population[individ].fitness()
             //self.average.append(fitn)
             if self.fitness > fitn {
@@ -120,7 +109,7 @@ class Population {
                 newGene.append(motherChromo[index])
             }
             
-            let offspring: Individual = Individual(newDna: DNA(mutationLevel: 0.1, chromosomes: newGene), start: levelPeaks.start, dest: levelPeaks.end)
+            let offspring: Individual = Individual(newDna: DNA(mutationLevel: 0.1, chromosomes: newGene), start:  startPos, dest: endPos)
             offspring.mutate()
             newPopulation.append(offspring)
             

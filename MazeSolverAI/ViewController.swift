@@ -19,18 +19,17 @@ class ViewController: NSViewController {
     @IBOutlet var mutationText: NSTextField!
     @IBOutlet var populationSlider: NSSlider!
     @IBOutlet var mutationSlider: NSSlider!
-    @IBOutlet var mazesPopUpButton: NSPopUpButton!
     @IBOutlet var generationLabel: NSTextField!
     @IBOutlet var bingoLabel: NSTextField!
     @IBOutlet var bestFitnessLabel: NSTextField!
     @IBOutlet var worstFitness: NSTextField!
     
     var individium : Individual?
-    var pop : Population?
+    //var pop : Population?
     var startOn : Bool = false
     var generation: Int = 1
     var scene: GameScene?
-    var level: MazeLevels?
+    //var level: MazeLevels?
     
     var queue: DispatchQueue?
     
@@ -39,7 +38,7 @@ class ViewController: NSViewController {
         
         stopButton.isEnabled = false
         bingoLabel.isHidden = true
-        level = MazeLevels.Level1
+        //level = MazeLevels.Level1
         
         queue = DispatchQueue(label: "com.plovlover.deel", qos: .userInitiated)
 
@@ -63,18 +62,17 @@ class ViewController: NSViewController {
     @IBAction func startAction(_ sender: Any) {
         startOn = true
         bingoLabel.isHidden = true
-        mazesPopUpButton.isEnabled = false
-        pop = nil
-        pop = Population(number: Int(self.populationSlider.intValue), mutationLevel: 0.1, levelPeaks: LevelPeaks(level: level!), level: level!)
+        //pop = nil
+        //pop = Population(number: Int(self.populationSlider.intValue), mutationLevel: 0.1, levelPeaks: LevelPeaks(level: level!), level: level!)
         
         queue!.async {
             while self.startOn {
-                self.pop?.start(completion: {
+                self.scene?.start(completion: {
                     (finished, fittest, bestie, worstie) in
 
                     let x  = fittest.getSuccessTil().x
                     let y = fittest.getSuccessTil().y
-                    if x == 14 && y == 15 {
+                    if x == 14 && y == 14 {
                         self.startOn = false
                         self.bingoLabel.isHidden = false
                     }
@@ -103,34 +101,21 @@ class ViewController: NSViewController {
         startOn = false
         startButton.isEnabled = true
         stopButton.isEnabled = false
-        mazesPopUpButton.isEnabled = true
         bingoLabel.isHidden = true
         //scene?.updateMaze(level!)
     }
     
-    @IBAction func mazePopUpAction(_ sender: Any) {
-//        let levelChosen: Int = self.mazesPopUpButton.indexOfSelectedItem
-//        switch levelChosen {
-//        case 0:
-//            self.level = MazeLevels.Level1
-//            print("levl1")
-//        case 1:
-//            self.level = MazeLevels.Level2
-//            print("levl2")
-//        case 2:
-//            self.level = MazeLevels.Level3
-//            print("levl3")
-//        default:
-//            self.level = MazeLevels.Level1
-//            print("levl4")
-//        }
-//        self.scene?.clearScreen()
-//        self.scene?.updateMaze(self.level!)
-        
+    @IBAction func newMazeAction(_ sender: Any) {
+        self.scene?.newMaze(population: Int(self.populationSlider.intValue), mutation: 0.1)
     }
     
+    @IBAction func solveAction(_ sender: Any) {
+        self.scene?.solveMaze()
+    }
+    
+    
     @IBAction func sliderAction(_ sender: NSSlider) {
-        var currentValue = sender.intValue
+        let currentValue = sender.intValue
         self.populationText.stringValue = "Population: \(currentValue)"
     }
     

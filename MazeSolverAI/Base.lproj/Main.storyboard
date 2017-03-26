@@ -758,23 +758,6 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1HB-lb-skN">
-                                            <rect key="frame" x="18" y="17" width="199" height="26"/>
-                                            <popUpButtonCell key="cell" type="push" title="Maze 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="Kd6-mx-1zf" id="tfD-yl-KNB">
-                                                <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="menu"/>
-                                                <menu key="menu" id="wFu-be-grQ">
-                                                    <items>
-                                                        <menuItem title="Maze 1" state="on" id="Kd6-mx-1zf"/>
-                                                        <menuItem title="Maze 2" id="e5p-mO-T3V"/>
-                                                        <menuItem title="Maze 3" id="Ud6-bg-DA8"/>
-                                                    </items>
-                                                </menu>
-                                            </popUpButtonCell>
-                                            <connections>
-                                                <action selector="mazePopUpAction:" target="XfG-lQ-9wD" id="NUx-WJ-UHs"/>
-                                            </connections>
-                                        </popUpButton>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="frx-QU-ahT">
                                             <rect key="frame" x="57" y="395" width="120" height="22"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Generation #1" id="l65-cL-xtW">
@@ -812,12 +795,39 @@
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bIc-oX-xHg">
+                                            <rect key="frame" x="12" y="307" width="105" height="32"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="93" id="VcZ-mF-Vjh"/>
+                                            </constraints>
+                                            <buttonCell key="cell" type="push" title="New maze" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ZIt-Hg-Tnm">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="newMazeAction:" target="XfG-lQ-9wD" id="piG-Lg-7V3"/>
+                                            </connections>
+                                        </button>
+                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wIt-jQ-aIQ">
+                                            <rect key="frame" x="114" y="307" width="106" height="32"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="94" id="0MF-Rc-lfH"/>
+                                            </constraints>
+                                            <buttonCell key="cell" type="push" title="Solve" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ao9-p0-mKs">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="solveAction:" target="XfG-lQ-9wD" id="IOG-sY-wiU"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="bIc-oX-xHg" firstAttribute="top" secondItem="p09-Iu-dfK" secondAttribute="bottom" constant="12" id="0LC-Yb-r1W"/>
                                         <constraint firstItem="SEN-ar-jrV" firstAttribute="centerX" secondItem="b81-EQ-juZ" secondAttribute="centerX" id="71q-0F-Euw"/>
                                         <constraint firstItem="SeF-JE-XpX" firstAttribute="top" secondItem="DU1-vd-3Ge" secondAttribute="bottom" constant="8" id="7fg-Rc-m9v"/>
                                         <constraint firstAttribute="trailing" secondItem="ZMm-bX-zjJ" secondAttribute="trailing" constant="18" id="813-lO-Tm8"/>
-                                        <constraint firstAttribute="bottom" secondItem="1HB-lb-skN" secondAttribute="bottom" constant="20" id="BY5-Id-gU2"/>
+                                        <constraint firstItem="bIc-oX-xHg" firstAttribute="leading" secondItem="b81-EQ-juZ" secondAttribute="leading" constant="18" id="81B-kU-gne"/>
                                         <constraint firstItem="p09-Iu-dfK" firstAttribute="leading" secondItem="b81-EQ-juZ" secondAttribute="leading" constant="18" id="Blo-DG-gxl"/>
                                         <constraint firstItem="LGN-oh-Koa" firstAttribute="centerY" secondItem="b81-EQ-juZ" secondAttribute="centerY" id="FiR-2S-QVx"/>
                                         <constraint firstItem="frx-QU-ahT" firstAttribute="top" secondItem="M3i-Rq-Q2i" secondAttribute="bottom" constant="19" id="JKt-JY-H9e"/>
@@ -829,13 +839,13 @@
                                         <constraint firstItem="p09-Iu-dfK" firstAttribute="top" secondItem="frx-QU-ahT" secondAttribute="bottom" constant="27" id="Tya-Mt-aRV"/>
                                         <constraint firstItem="uul-gV-osm" firstAttribute="centerX" secondItem="b81-EQ-juZ" secondAttribute="centerX" id="VQH-GP-p7Z"/>
                                         <constraint firstItem="LGN-oh-Koa" firstAttribute="centerX" secondItem="b81-EQ-juZ" secondAttribute="centerX" id="bhb-3V-ROr"/>
-                                        <constraint firstAttribute="trailing" secondItem="1HB-lb-skN" secondAttribute="trailing" constant="20" id="ets-GS-c5B"/>
+                                        <constraint firstItem="wIt-jQ-aIQ" firstAttribute="top" secondItem="ZMm-bX-zjJ" secondAttribute="bottom" constant="12" id="cVC-ve-Ypo"/>
                                         <constraint firstItem="frx-QU-ahT" firstAttribute="centerX" secondItem="b81-EQ-juZ" secondAttribute="centerX" id="f2m-yw-oHO"/>
                                         <constraint firstItem="0H0-4h-pEv" firstAttribute="centerX" secondItem="b81-EQ-juZ" secondAttribute="centerX" id="foz-gI-MJ7"/>
                                         <constraint firstItem="M3i-Rq-Q2i" firstAttribute="centerX" secondItem="b81-EQ-juZ" secondAttribute="centerX" id="iUE-4y-KJe"/>
                                         <constraint firstItem="SEN-ar-jrV" firstAttribute="top" secondItem="uul-gV-osm" secondAttribute="bottom" constant="8" id="itn-0Y-tMX"/>
+                                        <constraint firstAttribute="trailing" secondItem="wIt-jQ-aIQ" secondAttribute="trailing" constant="20" id="jrZ-Mj-Ref"/>
                                         <constraint firstAttribute="trailing" secondItem="DU1-vd-3Ge" secondAttribute="trailing" constant="20" id="knb-qg-t0Y"/>
-                                        <constraint firstItem="1HB-lb-skN" firstAttribute="leading" secondItem="b81-EQ-juZ" secondAttribute="leading" constant="20" id="oya-it-ut5"/>
                                         <constraint firstItem="DU1-vd-3Ge" firstAttribute="top" secondItem="0H0-4h-pEv" secondAttribute="bottom" constant="8" id="pD3-sz-TtO"/>
                                         <constraint firstItem="DU1-vd-3Ge" firstAttribute="leading" secondItem="b81-EQ-juZ" secondAttribute="leading" constant="20" id="xkm-Np-CL0"/>
                                         <constraint firstItem="M3i-Rq-Q2i" firstAttribute="top" secondItem="b81-EQ-juZ" secondAttribute="top" constant="20" id="z68-xw-x6m"/>
@@ -877,7 +887,6 @@
                         <outlet property="bestFitnessLabel" destination="DU1-vd-3Ge" id="SqB-6w-rtL"/>
                         <outlet property="bingoLabel" destination="M3i-Rq-Q2i" id="Z1n-FK-WUu"/>
                         <outlet property="generationLabel" destination="frx-QU-ahT" id="KWQ-bZ-Q6u"/>
-                        <outlet property="mazesPopUpButton" destination="1HB-lb-skN" id="4Nf-rP-Feq"/>
                         <outlet property="mutationSlider" destination="0H0-4h-pEv" id="lOj-YZ-6W9"/>
                         <outlet property="mutationText" destination="SEN-ar-jrV" id="Dr6-Gh-RaE"/>
                         <outlet property="populationSlider" destination="uul-gV-osm" id="egq-pa-U0h"/>
