@@ -26,9 +26,8 @@ class DNA {
     public func mutate() {
         let randChrome = Int.random(range: (0..<genes.count))
         let randNextStep = Int.random(range: (0..<5))
-        //print("b4 mutation: \(self.genes[randChrome])")
         self.genes[randChrome] = NextStep(rawValue: randNextStep)!
-        //print("after: \(self.genes[randChrome])")
+        
     }
     
     public func toString() -> String {

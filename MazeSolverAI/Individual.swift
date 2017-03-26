@@ -60,17 +60,15 @@ class Individual {
         self.gene.mutate()
     }
     
-    public func getSuccessTil() -> Coordinate {
+    public func getSuccessTil() -> Coordinate {4
         return self.successTil
     }
     
     public func fitness() -> Int {
-        //print(self.successTil)
         return Int(sqrt(pow(Double(successTil.x - destination.x), 2) + pow(Double(successTil.y - destination.y), 2)))
     }
     
     public func fitness(coor: Coordinate) -> Int {
-        //print(self.successTil)
         return Int(sqrt(pow(Double(coor.x - destination.x), 2) + pow(Double(coor.y - destination.y), 2)))
     }
     
@@ -118,20 +116,15 @@ class Individual {
         
         let columns = maze.count
         let rows = maze[0].count
-        //var temp = self.startPosition
-        //print("col: \(columns), rows:\(rows)")
+        
         for num in 0..<path.count {
-            //var temp = self.startPosition
             let pathX = Int(self.path[num].x)
             let pathY = Int(self.path[num].y)
             if (pathX < columns && pathX >= 0) && (pathY < rows && pathY >= 0) {
                 if let mazeRow: Int = maze[pathX][pathY] {
                     if mazeRow == 0 {
-                        //temp = self.path[num]
                         bestFit(coor: path[num])
-                        //print("maze[pathY][pathX]: \(mazeRow)")
                     } else if mazeRow == 1 {
-                        //self.successTil = temp
                         break
                     }
                     

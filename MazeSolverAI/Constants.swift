@@ -41,14 +41,14 @@ struct LevelPeaks {
             self.rows = 16
         case .Level2:
             self.start = EntryPointLevel2
-            self.end = EntryPointLevel2
-            self.columns = 8
-            self.rows = 8
+            self.end = EndPointLevel2
+            self.columns = 16
+            self.rows = 16
         case .Level3:
             self.start = EntryPointLevel3
             self.end = EndPointLevel3
-            self.columns = 8
-            self.rows = 8
+            self.columns = 16
+            self.rows = 16
         }
     }
 }
@@ -72,10 +72,10 @@ let EntryPointLevel1 = Coordinate(1,0)
 let EndPointLevel1 = Coordinate(14,15)
 
 let EntryPointLevel2 = Coordinate(1,0)
-let EndPointLevel2 = Coordinate(6,7)
+let EndPointLevel2 = Coordinate(14,15)
 
-let EntryPointLevel3 = Coordinate(5,0)
-let EndPointLevel3 = Coordinate(2,7)
+let EntryPointLevel3 = Coordinate(1,0)
+let EndPointLevel3 = Coordinate(14,15)
 
 
 

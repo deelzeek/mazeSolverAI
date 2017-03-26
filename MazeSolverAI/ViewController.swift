@@ -22,6 +22,8 @@ class ViewController: NSViewController {
     @IBOutlet var mazesPopUpButton: NSPopUpButton!
     @IBOutlet var generationLabel: NSTextField!
     @IBOutlet var bingoLabel: NSTextField!
+    @IBOutlet var bestFitnessLabel: NSTextField!
+    @IBOutlet var worstFitness: NSTextField!
     
     var individium : Individual?
     var pop : Population?
@@ -58,16 +60,16 @@ class ViewController: NSViewController {
         startOn = true
         bingoLabel.isHidden = true
         mazesPopUpButton.isEnabled = false
+        pop = nil
+        pop = Population(number: Int(self.populationSlider.intValue), mutationLevel: 0.1, levelPeaks: LevelPeaks(level: level!), level: level!)
         
-        pop = Population(number: 1000, mutationLevel: 0.1, levelPeaks: LevelPeaks(level: level!))
-        
-        let queue = DispatchQueue(label: "com.usmani.deel", qos: .userInitiated)
+        let queue = DispatchQueue(label: "com.plovlover.deel", qos: .userInitiated)
         
         queue.async {
             while self.startOn {
                 self.pop?.start(completion: {
-                    (finished, fittest) in
-                    
+                    (finished, fittest, bestie, worstie) in
+
                     let x  = fittest.getSuccessTil().x
                     let y = fittest.getSuccessTil().y
                     if x == 14 && y == 15 {
@@ -77,6 +79,8 @@ class ViewController: NSViewController {
                     
                     DispatchQueue.main.sync {
                         self.generationLabel.stringValue = "Generation #\(self.generation)"
+                        self.bestFitnessLabel.stringValue = "Best fitness: \(bestie)"
+                        self.worstFitness.stringValue = "Worst fitness: \(worstie)"
                         self.scene?.updateMaze(fittest: fittest)
                         
                     }
@@ -107,16 +111,25 @@ class ViewController: NSViewController {
         switch levelChosen {
         case 0:
             self.level = MazeLevels.Level1
+            print("levl1")
         case 1:
             self.level = MazeLevels.Level2
+            print("levl2")
         case 2:
             self.level = MazeLevels.Level3
+            print("levl3")
         default:
             self.level = MazeLevels.Level1
+            print("levl4")
         }
         self.scene?.clearScreen()
         self.scene?.updateMaze(self.level!)
                 
+    }
+    
+    @IBAction func sliderAction(_ sender: NSSlider) {
+        var currentValue = sender.intValue
+        self.populationText.stringValue = "Population: \(currentValue)"
     }
     
     override func awakeFromNib() {

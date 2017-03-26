@@ -29,6 +29,49 @@ class GameScene: SKScene {
         if let _ = self.tile {
             updateMaze(.Level1)
         }
+        
+        let mazeOne = loadMazeLevels(level: MazeLevels.Level1)
+        let mazeTwo = loadMazeLevels(level: MazeLevels.Level2)
+        let mazeThree = loadMazeLevels(level: MazeLevels.Level3)
+        
+        Labyrinth.initShared(maze1: mazeOne, maze2: mazeTwo, maze3: mazeThree)
+        
+    }
+    
+    func loadMazeLevels(level: MazeLevels) -> Array<Array<Int>> {
+        
+        var mazeTemp = Array<Array<Int>>()
+        
+        let path = Bundle.main.path(forResource: level.rawValue, ofType: nil)
+        
+        do {
+            let fileContents = try String(contentsOfFile:path!, encoding: String.Encoding.utf8)
+            let lines = fileContents.components(separatedBy: "\n")
+            for row in 0..<lines.count-1 {
+                let items = lines[row].components(separatedBy: " ")
+                var columnArray = Array<Int>()
+                //print("lines: \(lines.count), items: \(items.count)")
+                for column in 0..<items.count {
+                    
+                    if items[column] != "00" {
+                        columnArray.append(1)
+                        
+                    } else {
+                        columnArray.append(0)
+                    }
+                    
+                }
+                
+                mazeTemp.append(columnArray)
+                
+            }
+            
+        } catch {
+            print("Error loading map")
+        }
+
+        return mazeTemp
+        
     }
     
     
@@ -59,7 +102,7 @@ class GameScene: SKScene {
     public func updateMaze(_ level: MazeLevels) {
         self.level = level
         self.levelPeaks = LevelPeaks(level: level)
-        
+        //self.maze.removeAll()
         let path = Bundle.main.path(forResource: level.rawValue, ofType: nil)
         
         do {
@@ -89,11 +132,13 @@ class GameScene: SKScene {
             }
             
             //print(self.maze)
-            Labyrinth.initShared(maze: self.maze)
+            //Labyrinth.initShared(maze: self.maze)
             //print("Laby: \(Labyrinth.sharedInstance)")
         } catch {
             //print("Error loading map")
         }
+        
+        //print(self.maze)
     }
     
     public func updateMaze(fittest: Individual) {
@@ -101,7 +146,7 @@ class GameScene: SKScene {
         let closestX = fittest.getSuccessTil().x
         let closestY = fittest.getSuccessTil().y
         
-        self.maze.removeAll()
+        //self.maze.removeAll()
         let path = Bundle.main.path(forResource: level.rawValue, ofType: nil)
         
         do {
@@ -126,7 +171,7 @@ class GameScene: SKScene {
                     
                 }
                 
-                self.maze.append(columnArray)
+                //self.maze.append(columnArray)
             }
             
             for n in 0..<fittest.getGene().count {
@@ -150,7 +195,7 @@ class GameScene: SKScene {
             }
             
             //print(self.maze)
-            Labyrinth.initShared(maze: self.maze)
+            //Labyrinth.initShared(maze: self.maze)
             //print("Laby: \(Labyrinth.sharedInstance)")
         } catch {
             print("Error loading map")

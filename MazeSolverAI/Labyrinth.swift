@@ -8,19 +8,31 @@
 
 import Foundation
 
-var sharedLabyrinth : Labyrinth?
+var sharedLabyrinthLevel1 : Labyrinth?
+var sharedLabyrinthLevel2 : Labyrinth?
+var sharedLabyrinthLevel3 : Labyrinth?
 
 class Labyrinth {
     var maze: Array<Array<Int>>
     
-    class var sharedInstance: Labyrinth {
-        return sharedLabyrinth!
+    class var sharedInstanceLevel1: Labyrinth {
+        return sharedLabyrinthLevel1!
     }
     
-    class func initShared(maze: Array<Array<Int>>) {
-        sharedLabyrinth = Labyrinth(maze: maze)
+    class var sharedInstanceLevel2: Labyrinth {
+        return sharedLabyrinthLevel2!
     }
     
+    class var sharedInstanceLevel3: Labyrinth {
+        return sharedLabyrinthLevel3!
+    }
+    
+    class func initShared(maze1: Array<Array<Int>>, maze2: Array<Array<Int>>, maze3: Array<Array<Int>>) {
+        sharedLabyrinthLevel1 = Labyrinth(maze: maze1)
+        sharedLabyrinthLevel2 = Labyrinth(maze: maze2)
+        sharedLabyrinthLevel3 = Labyrinth(maze: maze3)
+    }
+
     init(maze: Array<Array<Int>>) {
         self.maze = maze
     }

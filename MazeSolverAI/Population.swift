@@ -15,14 +15,19 @@ class Population {
     var population: [Individual] = []
     var mutationLevel: Double
     var fitness = 100
+    var worstFitness = 0
     var bestWithFit : Individual?
+    var worstWithFit: Individual?
     var levelPeaks : LevelPeaks
+    var level: MazeLevels?
+    var average: [Int] = []
 
     
-    init(number ofPopulation:Int, mutationLevel: Double, levelPeaks: LevelPeaks) {
+    init(number ofPopulation:Int, mutationLevel: Double, levelPeaks: LevelPeaks, level: MazeLevels) {
         self.populationAmount = ofPopulation
         self.mutationLevel = mutationLevel
         self.levelPeaks = levelPeaks
+        self.level = level
         
         createPopulation()
     }
@@ -36,20 +41,39 @@ class Population {
         }
     }
     
-    public func start(completion:@escaping ((_ finished: Bool, _ fittest : Individual)->())) {
+    public func start(completion:@escaping ((_ finished: Bool, _ fittest : Individual, _ bestFitness: Int, _ worstFitness: Int)->())) {
+        var mazeCurrent = Array<Array<Int>>()
+        
+        switch self.level! {
+        case .Level1:
+            mazeCurrent = Labyrinth.sharedInstanceLevel1.maze
+        case .Level2:
+            mazeCurrent = Labyrinth.sharedInstanceLevel2.maze
+        case .Level3:
+            mazeCurrent = Labyrinth.sharedInstanceLevel3.maze
+        default:
+            break
+        }
+        
+
         for individ in 0..<populationAmount {
-            population[individ].checkPath(maze: Labyrinth.sharedInstance.maze)
+            population[individ].checkPath(maze: mazeCurrent)
             let fitn = population[individ].fitness()
+            //self.average.append(fitn)
             if self.fitness > fitn {
                 self.fitness = fitn
                 self.bestWithFit = population[individ]
+            }
+            
+            if self.worstFitness < fitn {
+                self.worstFitness = fitn
+                //self.worstWithFit = population[individ]
             }
         }
         
         crossover(completion: {
             _ in
-            //print("Best of generation: \(self.bestWithFit?.getSuccessTil())")
-            completion(true, self.bestWithFit!)
+            completion(true, self.bestWithFit!, self.fitness, self.worstFitness)
         })
         
     }
@@ -73,9 +97,9 @@ class Population {
         
         return parent!
     }
+
     //tournament pool
-    //roulette pool
-    
+
     public func crossover(completion: ((_ finished:Bool) -> ())) {
         var newPopulation : [Individual] = []
         for _ in 0..<populationAmount {
@@ -83,7 +107,7 @@ class Population {
             let mother : Individual = findParent()
             
             let fatherChromo = father.getGene()
-            let motherChromo = father.getGene()
+            let motherChromo = mother.getGene()
             
             let split = Int.random(range: (0..<fatherChromo.count))
             var newGene : [NextStep] = []
