@@ -32,12 +32,16 @@ class ViewController: NSViewController {
     var scene: GameScene?
     var level: MazeLevels?
     
+    var queue: DispatchQueue?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         stopButton.isEnabled = false
         bingoLabel.isHidden = true
         level = MazeLevels.Level1
+        
+        queue = DispatchQueue(label: "com.plovlover.deel", qos: .userInitiated)
 
         
         if let view = self.skView {
@@ -63,9 +67,7 @@ class ViewController: NSViewController {
         pop = nil
         pop = Population(number: Int(self.populationSlider.intValue), mutationLevel: 0.1, levelPeaks: LevelPeaks(level: level!), level: level!)
         
-        let queue = DispatchQueue(label: "com.plovlover.deel", qos: .userInitiated)
-        
-        queue.async {
+        queue!.async {
             while self.startOn {
                 self.pop?.start(completion: {
                     (finished, fittest, bestie, worstie) in
@@ -81,7 +83,7 @@ class ViewController: NSViewController {
                         self.generationLabel.stringValue = "Generation #\(self.generation)"
                         self.bestFitnessLabel.stringValue = "Best fitness: \(bestie)"
                         self.worstFitness.stringValue = "Worst fitness: \(worstie)"
-                        self.scene?.updateMaze(fittest: fittest)
+                        //self.scene?.updateMaze(fittest: fittest)
                         
                     }
                     
@@ -103,28 +105,28 @@ class ViewController: NSViewController {
         stopButton.isEnabled = false
         mazesPopUpButton.isEnabled = true
         bingoLabel.isHidden = true
-        scene?.updateMaze(level!)
+        //scene?.updateMaze(level!)
     }
     
     @IBAction func mazePopUpAction(_ sender: Any) {
-        let levelChosen: Int = self.mazesPopUpButton.indexOfSelectedItem
-        switch levelChosen {
-        case 0:
-            self.level = MazeLevels.Level1
-            print("levl1")
-        case 1:
-            self.level = MazeLevels.Level2
-            print("levl2")
-        case 2:
-            self.level = MazeLevels.Level3
-            print("levl3")
-        default:
-            self.level = MazeLevels.Level1
-            print("levl4")
-        }
-        self.scene?.clearScreen()
-        self.scene?.updateMaze(self.level!)
-                
+//        let levelChosen: Int = self.mazesPopUpButton.indexOfSelectedItem
+//        switch levelChosen {
+//        case 0:
+//            self.level = MazeLevels.Level1
+//            print("levl1")
+//        case 1:
+//            self.level = MazeLevels.Level2
+//            print("levl2")
+//        case 2:
+//            self.level = MazeLevels.Level3
+//            print("levl3")
+//        default:
+//            self.level = MazeLevels.Level1
+//            print("levl4")
+//        }
+//        self.scene?.clearScreen()
+//        self.scene?.updateMaze(self.level!)
+        
     }
     
     @IBAction func sliderAction(_ sender: NSSlider) {

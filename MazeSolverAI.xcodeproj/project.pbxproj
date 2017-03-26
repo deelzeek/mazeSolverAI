@@ -17,13 +17,15 @@
 		1618A8BD1E8180C400CE4939 /* Labyrinth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1618A8BC1E8180C400CE4939 /* Labyrinth.swift */; };
 		165F7E6C1E803B7000D067E9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165F7E6B1E803B7000D067E9 /* AppDelegate.swift */; };
 		165F7E6E1E803B7000D067E9 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 165F7E6D1E803B7000D067E9 /* GameScene.sks */; };
-		165F7E701E803B7000D067E9 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 165F7E6F1E803B7000D067E9 /* Actions.sks */; };
 		165F7E721E803B7000D067E9 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165F7E711E803B7000D067E9 /* GameScene.swift */; };
 		165F7E741E803B7000D067E9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165F7E731E803B7000D067E9 /* ViewController.swift */; };
 		165F7E761E803B7000D067E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 165F7E751E803B7000D067E9 /* Assets.xcassets */; };
 		165F7E791E803B7000D067E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 165F7E771E803B7000D067E9 /* Main.storyboard */; };
 		165F7E841E803B7000D067E9 /* MazeSolverAITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 165F7E831E803B7000D067E9 /* MazeSolverAITests.swift */; };
 		165F7E8F1E80465100D067E9 /* MazeTileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 165F7E8E1E80465100D067E9 /* MazeTileSet.sks */; };
+		16EC57441E884626001F234E /* Maze.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EC57431E884626001F234E /* Maze.swift */; };
+		16EC57461E884642001F234E /* MazeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EC57451E884642001F234E /* MazeBuilder.swift */; };
+		16EC57481E884FBA001F234E /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 16EC57471E884FBA001F234E /* Actions.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +50,6 @@
 		165F7E681E803B7000D067E9 /* MazeSolverAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MazeSolverAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		165F7E6B1E803B7000D067E9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		165F7E6D1E803B7000D067E9 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		165F7E6F1E803B7000D067E9 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		165F7E711E803B7000D067E9 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		165F7E731E803B7000D067E9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		165F7E751E803B7000D067E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -58,6 +59,9 @@
 		165F7E831E803B7000D067E9 /* MazeSolverAITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MazeSolverAITests.swift; sourceTree = "<group>"; };
 		165F7E851E803B7000D067E9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		165F7E8E1E80465100D067E9 /* MazeTileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MazeTileSet.sks; sourceTree = "<group>"; };
+		16EC57431E884626001F234E /* Maze.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Maze.swift; sourceTree = "<group>"; };
+		16EC57451E884642001F234E /* MazeBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MazeBuilder.swift; sourceTree = "<group>"; };
+		16EC57471E884FBA001F234E /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,11 +135,12 @@
 		165F7E6A1E803B7000D067E9 /* MazeSolverAI */ = {
 			isa = PBXGroup;
 			children = (
+				16EC57421E88460F001F234E /* Maze */,
 				1618A8B11E808BF200CE4939 /* Generic Algorithm */,
 				1618A8B01E808BC800CE4939 /* Utils */,
 				16C804DD1E8221E700B59CC8 /* Controllers */,
 				165F7E6D1E803B7000D067E9 /* GameScene.sks */,
-				165F7E6F1E803B7000D067E9 /* Actions.sks */,
+				16EC57471E884FBA001F234E /* Actions.sks */,
 				165F7E771E803B7000D067E9 /* Main.storyboard */,
 				165F7E8E1E80465100D067E9 /* MazeTileSet.sks */,
 				1618A8AF1E808BAA00CE4939 /* MazeMap */,
@@ -159,6 +164,15 @@
 				165F7E711E803B7000D067E9 /* GameScene.swift */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		16EC57421E88460F001F234E /* Maze */ = {
+			isa = PBXGroup;
+			children = (
+				16EC57431E884626001F234E /* Maze.swift */,
+				16EC57451E884642001F234E /* MazeBuilder.swift */,
+			);
+			name = Maze;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,9 +263,9 @@
 				1618A8AE1E808AEB00CE4939 /* mazethree.txt in Resources */,
 				165F7E8F1E80465100D067E9 /* MazeTileSet.sks in Resources */,
 				1618A8AC1E8083C500CE4939 /* mazetwo.txt in Resources */,
+				16EC57481E884FBA001F234E /* Actions.sks in Resources */,
 				165F7E6E1E803B7000D067E9 /* GameScene.sks in Resources */,
 				165F7E761E803B7000D067E9 /* Assets.xcassets in Resources */,
-				165F7E701E803B7000D067E9 /* Actions.sks in Resources */,
 				1618A8AA1E807EED00CE4939 /* mazeone.txt in Resources */,
 				165F7E791E803B7000D067E9 /* Main.storyboard in Resources */,
 			);
@@ -273,7 +287,9 @@
 			files = (
 				1618A8B71E813D8800CE4939 /* Population.swift in Sources */,
 				165F7E741E803B7000D067E9 /* ViewController.swift in Sources */,
+				16EC57441E884626001F234E /* Maze.swift in Sources */,
 				165F7E721E803B7000D067E9 /* GameScene.swift in Sources */,
+				16EC57461E884642001F234E /* MazeBuilder.swift in Sources */,
 				165F7E6C1E803B7000D067E9 /* AppDelegate.swift in Sources */,
 				1618A8B31E80A31D00CE4939 /* Constants.swift in Sources */,
 				1618A8B51E813BFF00CE4939 /* DNA.swift in Sources */,
