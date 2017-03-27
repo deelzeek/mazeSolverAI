@@ -26,39 +26,6 @@ extension Int
     }
 }
 
-struct LevelPeaks {
-    var start: Coordinate
-    var end: Coordinate
-    var columns: Int
-    var rows: Int
-    
-    init(level: MazeLevels) {
-        switch level {
-        case .Level1:
-            self.start = EntryPointLevel1
-            self.end = EndPointLevel1
-            self.columns = 16
-            self.rows = 16
-        case .Level2:
-            self.start = EntryPointLevel2
-            self.end = EndPointLevel2
-            self.columns = 16
-            self.rows = 16
-        case .Level3:
-            self.start = EntryPointLevel3
-            self.end = EndPointLevel3
-            self.columns = 16
-            self.rows = 16
-        }
-    }
-}
-
-
-enum MazeLevels: String {
-    case Level1 = "mazeone.txt"
-    case Level2 = "mazetwo.txt"
-    case Level3 = "mazethree.txt"
-}
 
 
 
@@ -67,17 +34,6 @@ enum NextStep: Int {
 }
 
 let MAX_MOVES = 60
-
-let EntryPointLevel1 = Coordinate(1,0)
-let EndPointLevel1 = Coordinate(14,15)
-
-let EntryPointLevel2 = Coordinate(1,0)
-let EndPointLevel2 = Coordinate(14,15)
-
-let EntryPointLevel3 = Coordinate(1,0)
-let EndPointLevel3 = Coordinate(14,15)
-
-
 
 
 

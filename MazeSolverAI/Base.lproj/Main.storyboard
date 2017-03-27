@@ -821,6 +821,14 @@
                                                 <action selector="solveAction:" target="XfG-lQ-9wD" id="IOG-sY-wiU"/>
                                             </connections>
                                         </button>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rva-Uz-wyV">
+                                            <rect key="frame" x="20" y="86" width="200" height="17"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Fittest coordinates" id="TYc-Ul-sJn">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="highlightColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="bIc-oX-xHg" firstAttribute="top" secondItem="p09-Iu-dfK" secondAttribute="bottom" constant="12" id="0LC-Yb-r1W"/>
@@ -830,7 +838,9 @@
                                         <constraint firstItem="bIc-oX-xHg" firstAttribute="leading" secondItem="b81-EQ-juZ" secondAttribute="leading" constant="18" id="81B-kU-gne"/>
                                         <constraint firstItem="p09-Iu-dfK" firstAttribute="leading" secondItem="b81-EQ-juZ" secondAttribute="leading" constant="18" id="Blo-DG-gxl"/>
                                         <constraint firstItem="LGN-oh-Koa" firstAttribute="centerY" secondItem="b81-EQ-juZ" secondAttribute="centerY" id="FiR-2S-QVx"/>
+                                        <constraint firstItem="Rva-Uz-wyV" firstAttribute="top" secondItem="SeF-JE-XpX" secondAttribute="bottom" constant="8" id="Gkx-Vy-akE"/>
                                         <constraint firstItem="frx-QU-ahT" firstAttribute="top" secondItem="M3i-Rq-Q2i" secondAttribute="bottom" constant="19" id="JKt-JY-H9e"/>
+                                        <constraint firstAttribute="trailing" secondItem="Rva-Uz-wyV" secondAttribute="trailing" constant="16" id="JQX-pw-N01"/>
                                         <constraint firstItem="ZMm-bX-zjJ" firstAttribute="top" secondItem="frx-QU-ahT" secondAttribute="bottom" constant="27" id="N49-Kf-HeK"/>
                                         <constraint firstAttribute="trailing" secondItem="SeF-JE-XpX" secondAttribute="trailing" constant="20" id="OoP-DF-JYa"/>
                                         <constraint firstItem="0H0-4h-pEv" firstAttribute="top" secondItem="SEN-ar-jrV" secondAttribute="bottom" constant="8" id="P6g-Mj-IEa"/>
@@ -838,6 +848,7 @@
                                         <constraint firstItem="SeF-JE-XpX" firstAttribute="leading" secondItem="b81-EQ-juZ" secondAttribute="leading" constant="20" id="T8U-WT-Gcq"/>
                                         <constraint firstItem="p09-Iu-dfK" firstAttribute="top" secondItem="frx-QU-ahT" secondAttribute="bottom" constant="27" id="Tya-Mt-aRV"/>
                                         <constraint firstItem="uul-gV-osm" firstAttribute="centerX" secondItem="b81-EQ-juZ" secondAttribute="centerX" id="VQH-GP-p7Z"/>
+                                        <constraint firstItem="Rva-Uz-wyV" firstAttribute="leading" secondItem="b81-EQ-juZ" secondAttribute="leading" constant="22" id="bbz-ip-kgR"/>
                                         <constraint firstItem="LGN-oh-Koa" firstAttribute="centerX" secondItem="b81-EQ-juZ" secondAttribute="centerX" id="bhb-3V-ROr"/>
                                         <constraint firstItem="wIt-jQ-aIQ" firstAttribute="top" secondItem="ZMm-bX-zjJ" secondAttribute="bottom" constant="12" id="cVC-ve-Ypo"/>
                                         <constraint firstItem="frx-QU-ahT" firstAttribute="centerX" secondItem="b81-EQ-juZ" secondAttribute="centerX" id="f2m-yw-oHO"/>
@@ -886,6 +897,7 @@
                     <connections>
                         <outlet property="bestFitnessLabel" destination="DU1-vd-3Ge" id="SqB-6w-rtL"/>
                         <outlet property="bingoLabel" destination="M3i-Rq-Q2i" id="Z1n-FK-WUu"/>
+                        <outlet property="fittestCoor" destination="Rva-Uz-wyV" id="yOp-92-9Sq"/>
                         <outlet property="generationLabel" destination="frx-QU-ahT" id="KWQ-bZ-Q6u"/>
                         <outlet property="mutationSlider" destination="0H0-4h-pEv" id="lOj-YZ-6W9"/>
                         <outlet property="mutationText" destination="SEN-ar-jrV" id="Dr6-Gh-RaE"/>

@@ -28,6 +28,7 @@ class Individual {
     private var successTil: Coordinate
     private var startPosition: Coordinate
     private var destination: Coordinate
+    private var steps:Int = 0
     
     init(mutaLevel: Double, start: Coordinate, dest: Coordinate) {
         self.gene = DNA(mutationLevel: mutaLevel)
@@ -48,6 +49,11 @@ class Individual {
         
     }
     
+    public func getStepsAchieved() -> Int {
+        return self.steps
+    }
+
+    
     public func getPath() -> [Coordinate] {
         return self.path
     }
@@ -60,7 +66,7 @@ class Individual {
         self.gene.mutate()
     }
     
-    public func getSuccessTil() -> Coordinate {4
+    public func getSuccessTil() -> Coordinate {
         return self.successTil
     }
     
@@ -86,13 +92,13 @@ class Individual {
             
             switch gene.genes[current] {
             case .North:
-                xMove = -1
-            case .South:
-                xMove = 1
-            case .East:
                 yMove = 1
-            case .West:
+            case .South:
                 yMove = -1
+            case .East:
+                xMove = 1
+            case .West:
+                xMove = -1
             default:
                 continue
             }
@@ -100,7 +106,11 @@ class Individual {
             let lastX = pathTemp.last?.x
             let lastY = pathTemp.last?.y
             
-            pathTemp.append(Coordinate(lastX! + xMove, lastY! + yMove))
+            if lastX! + xMove == -1 || lastY! + yMove == -1 || lastX! + xMove == 9 || lastX! + xMove == 9 {
+                pathTemp.append(Coordinate(lastX!, lastY!))
+            } else {
+                pathTemp.append(Coordinate(lastX! + xMove, lastY! + yMove))
+            }
             
         }
         
@@ -115,36 +125,46 @@ class Individual {
     public func checkPath(maze: Array<Array<Int>>){
         
         let columns = maze.count
-        let rows = maze[0].count
+        let rows = maze.count
         
-        for num in 0..<path.count {
+        var prevX = path[0].x
+        var prevY = path[0].y
+        
+        for num in 1..<path.count {
             let pathX = Int(self.path[num].x)
             let pathY = Int(self.path[num].y)
-            if (pathX < columns && pathX >= 0) && (pathY < rows && pathY >= 0) {
-                if let mazeRow: Int = maze[pathX][pathY] {
-                    if mazeRow == 0 {
-                        bestFit(coor: path[num])
-                    } else if mazeRow == 1 {
-                        break
+            if pathX != prevX || pathY != prevY {
+                if (pathX < columns) && (pathY < rows) {
+                    if let mazeRow: Int = maze[pathX][pathY] {
+                        if mazeRow == 0 {
+                            self.bestFit(coor: path[num], step: num)
+                            prevX = pathX
+                            prevY = pathY
+                        } else if mazeRow == 1 {
+                            return
+                        }
                     }
-                    
-                    
+                } else {
+                    //self.successTil = temp
+                    return
                 }
             } else {
-                //self.successTil = temp
-                break
+                return
             }
            
         }
         
-        //print("Best fit: \(self.successTil)")
         
     }
     
-    private func bestFit(coor: Coordinate) {
-        let champ = fitness()
-        let vacant = fitness(coor: coor)
-        if vacant < champ {
+    private func bestFit(coor: Coordinate, step: Int) {
+//        let champ = fitness()
+//        let vacant = fitness(coor: coor)
+//        if vacant < champ {
+//            self.successTil = coor
+//        }
+        if self.steps <= step {
+            self.steps = step
             self.successTil = coor
         }
     }

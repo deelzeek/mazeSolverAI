@@ -17,7 +17,7 @@ class Maze {
      
      - Note: This value must be odd.
      */
-    static let dimensions = 15
+    static let dimensions = 9
     
     /// A grid-based graph representing the navigability space of the maze.
     var graph: GKGridGraph<GKGridGraphNode>
@@ -72,10 +72,10 @@ class Maze {
          */
         let mazeBuilder = MazeBuilder(maze: self)
         let mazeWalls = mazeBuilder.mazeWallsForRemoval()
-        for node in mazeWalls {
-            print("MazeWall -> x: \(node.gridPosition.x), y: \(node.gridPosition.y)")
-        }
-        print("END")
+//        for node in mazeWalls {
+//            print("MazeWall -> x: \(node.gridPosition.x), y: \(node.gridPosition.y)")
+//        }
+//        print("END")
         graph.remove(mazeWalls)
     }
 }

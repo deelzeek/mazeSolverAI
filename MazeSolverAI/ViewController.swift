@@ -23,6 +23,7 @@ class ViewController: NSViewController {
     @IBOutlet var bingoLabel: NSTextField!
     @IBOutlet var bestFitnessLabel: NSTextField!
     @IBOutlet var worstFitness: NSTextField!
+    @IBOutlet var fittestCoor: NSTextField!
     
     var individium : Individual?
     //var pop : Population?
@@ -31,17 +32,12 @@ class ViewController: NSViewController {
     var scene: GameScene?
     //var level: MazeLevels?
     
-    var queue: DispatchQueue?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         stopButton.isEnabled = false
         bingoLabel.isHidden = true
-        //level = MazeLevels.Level1
-        
-        queue = DispatchQueue(label: "com.plovlover.deel", qos: .userInitiated)
-
         
         if let view = self.skView {
             // Load the SKScene from 'GameScene.sks'
@@ -64,26 +60,30 @@ class ViewController: NSViewController {
         bingoLabel.isHidden = true
         //pop = nil
         //pop = Population(number: Int(self.populationSlider.intValue), mutationLevel: 0.1, levelPeaks: LevelPeaks(level: level!), level: level!)
+        let queue = DispatchQueue(label: "com.plovlover.deel", qos: .userInitiated)
         
-        queue!.async {
+        queue.async {
             while self.startOn {
                 self.scene?.start(completion: {
                     (finished, fittest, bestie, worstie) in
 
                     let x  = fittest.getSuccessTil().x
                     let y = fittest.getSuccessTil().y
-                    if x == 14 && y == 14 {
+                    
+                    
+                    if x == 8 && y == 0 {
                         self.startOn = false
                         self.bingoLabel.isHidden = false
                     }
-                    
                     DispatchQueue.main.sync {
                         self.generationLabel.stringValue = "Generation #\(self.generation)"
                         self.bestFitnessLabel.stringValue = "Best fitness: \(bestie)"
                         self.worstFitness.stringValue = "Worst fitness: \(worstie)"
-                        //self.scene?.updateMaze(fittest: fittest)
+                        self.fittestCoor.stringValue = "x:\(fittest.getSuccessTil().x), y: \(fittest.getSuccessTil().y)"
+                        self.scene?.drawFittest(fittest)
                         
                     }
+
                     
                 })
                 

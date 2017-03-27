@@ -32,12 +32,6 @@ class GameScene: SKScene {
     var population: Population?
     var mazeArrRep: Array<Array<Int>>?
     
-//    private var level: MazeLevels = .Level1
-//    public var maze = Array<Array<Int>>()
-//    private var levelPeaks : LevelPeaks = LevelPeaks(level: .Level1)
-    
-    
-    //private var spinnyNode : SKShapeNode?
     
     
     override func didMove(to view: SKView) {
@@ -46,7 +40,7 @@ class GameScene: SKScene {
     
     override func sceneDidLoad() {
         createMaze()
-        
+        createPopulation(number: 1000, mutation: 0.1)
     }
     
     // MARK: Methods
@@ -68,6 +62,7 @@ class GameScene: SKScene {
     func createMaze() {
         maze = Maze()
         generateMazeNodes()
+        //createPopulation(number: population, mutation: 0.1)
         hasSolutionDisplayed = false
     }
     
@@ -85,54 +80,6 @@ class GameScene: SKScene {
         hasSolutionDisplayed = true
     }
     
-//    func loadMazeLevels(level: MazeLevels) -> Array<Array<Int>> {
-//        
-//        var mazeTemp = Array<Array<Int>>()
-//        
-//        let path = Bundle.main.path(forResource: level.rawValue, ofType: nil)
-//        
-//        do {
-//            let fileContents = try String(contentsOfFile:path!, encoding: String.Encoding.utf8)
-//            let lines = fileContents.components(separatedBy: "\n")
-//            for row in 0..<lines.count-1 {
-//                let items = lines[row].components(separatedBy: " ")
-//                var columnArray = Array<Int>()
-//                //print("lines: \(lines.count), items: \(items.count)")
-//                for column in 0..<items.count {
-//                    
-//                    if items[column] != "00" {
-//                        columnArray.append(1)
-//                        
-//                    } else {
-//                        columnArray.append(0)
-//                    }
-//                    
-//                }
-//                
-//                mazeTemp.append(columnArray)
-//                
-//            }
-//            
-//        } catch {
-//            print("Error loading map")
-//        }
-//
-//        return mazeTemp
-//        
-//    }
-    
-    
-//    public func getMaze() -> Array<Array<Int>> {
-//        return self.maze
-//    }
-//    
-//    public func clearScreen() {
-//        for rows in 0..<16 {
-//            for columns in 0..<16 {
-//             self.tile?.setTileGroup(nil, forColumn: columns, row: rows)
-//            }
-//        }
-//    }
     
     public func newMaze(population: Int, mutation: Double) {
         createMaze()
@@ -172,10 +119,10 @@ class GameScene: SKScene {
             // Get the position of the maze node.
             let x = Int(node.gridPosition.x)
             let y = Int(node.gridPosition.y)
+            //print("node x: \(x), y: \(y)")
             
+            //X is horizontal and Y is vertical line. Start point is left-bottom.
             self.mazeArrRep?[x][y] = 0
-            
-            //print("generateMaze -> x: \(x), y: \(y)")
             
             /*
              Create a maze sprite node and place the sprite at the correct
@@ -197,6 +144,8 @@ class GameScene: SKScene {
              */
             spriteNodes[x][y] = mazeNode
         }
+        
+       // print("mazeReps: \(self.mazeArrRep)")
         
         
         // Grab the coordinates of the start and end maze sprite nodes.
@@ -255,34 +204,53 @@ class GameScene: SKScene {
     public func start(completion:@escaping ((_ finished: Bool, _ fittest : Individual, _ bestFitness: Int, _ worstFitness: Int)->())) {
         self.population?.start({
             (finished, fittest, bestie, worstie) in
+            //self.drawFittest(fittest)
             completion(finished, fittest, bestie, worstie)
+            
         }
         )
     }
     
-    func drawFittest(_ solution: [GKGridGraphNode]) {
+    public func drawFittest(_ indi: Individual) {
         
-        generateMazeNodes()
+        //generateMazeNodes()
+        
+        let closestX = indi.getSuccessTil().x
+        let closestY = indi.getSuccessTil().y
         
         let actionDelay: TimeInterval = 0
         
-        for i in 1...(solution.count - 2) {
-            // Grab the position of the maze graph node.
-            let x = Int(solution[i].gridPosition.x)
-            let y = Int(solution[i].gridPosition.y)
+        for n in 1..<indi.getPath().count {
+            let x = indi.getPath()[n].x
+            let y = indi.getPath()[n].y
             
-            // Run the animation action on the maze sprite node.
-            if let mazeNode = spriteNodes[x][y] {
-                mazeNode.run(
-                    SKAction.sequence(
-                        [SKAction.colorize(with: SKColor.gray, colorBlendFactor: 1, duration: 0),
-                         SKAction.wait(forDuration: actionDelay),
-                         SKAction.colorize(with: SKColor.white, colorBlendFactor: 1, duration: 0),
-                         SKAction.colorize(with: SKColor.lightGray, colorBlendFactor: 1, duration: 0)]
+            if x != closestX && y != closestY {
+                if let mazeNode = spriteNodes[x][y] {
+                    mazeNode.run(
+                        SKAction.sequence(
+                            [SKAction.colorize(with: SKColor.gray, colorBlendFactor: 1, duration: 0),
+                             SKAction.wait(forDuration: actionDelay),
+                             SKAction.colorize(with: SKColor.white, colorBlendFactor: 1, duration: 0),
+                             SKAction.colorize(with: SKColor.lightGray, colorBlendFactor: 1, duration: 0)]
+                        )
                     )
-                )
+                }
+            } else {
+                if let mazeNode = spriteNodes[x][y] {
+                    mazeNode.run(
+                        SKAction.sequence(
+                            [SKAction.colorize(with: SKColor.gray, colorBlendFactor: 1, duration: 0),
+                             SKAction.wait(forDuration: actionDelay),
+                             SKAction.colorize(with: SKColor.white, colorBlendFactor: 1, duration: 0),
+                             SKAction.colorize(with: SKColor.lightGray, colorBlendFactor: 1, duration: 0)]
+                        )
+                    )
+                }
+                return
             }
+            
         }
+        
     }
     
     func createPopulation(number ofPopulation: Int, mutation percent:Double) {
@@ -298,9 +266,9 @@ class GameScene: SKScene {
     private func arrayReprOfMaze() -> Array<Array<Int>> {
         var mazeCurrent = Array<Array<Int>>()
         
-        for _ in 0...14 {
+        for _ in 0..<9 {
             var arr = Array<Int>()
-            for _ in 0...14 {
+            for _ in 0..<9 {
                 arr.append(1)
             }
             mazeCurrent.append(arr)

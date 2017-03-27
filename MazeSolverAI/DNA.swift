@@ -46,7 +46,7 @@ class DNA {
         
         var chromosomes : [NextStep] = []
         
-        for _ in 1...MAX_MOVES {
+        for _ in 0..<MAX_MOVES {
             let random = Int.random(range: Range(0...3))
             
             switch random {

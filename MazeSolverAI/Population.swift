@@ -14,8 +14,8 @@ class Population {
     var populationAmount: Int
     var population: [Individual] = []
     var mutationLevel: Double
-    var fitness = 100
-    var worstFitness = 0
+    var fitness = 0
+    var worstFitness = 100
     var bestWithFit : Individual?
     var worstWithFit: Individual?
     var startPos: Coordinate!
@@ -33,6 +33,11 @@ class Population {
         createPopulation()
     }
     
+    deinit {
+        mazeCurrent.removeAll()
+        population.removeAll()
+    }
+    
     
     
     private func createPopulation() {
@@ -47,14 +52,14 @@ class Population {
 
         for individ in 0..<populationAmount {
             population[individ].checkPath(maze: mazeCurrent!)
-            let fitn = population[individ].fitness()
+            let fitn = population[individ].getStepsAchieved()
             //self.average.append(fitn)
-            if self.fitness > fitn {
+            if self.fitness < fitn {
                 self.fitness = fitn
                 self.bestWithFit = population[individ]
             }
             
-            if self.worstFitness < fitn {
+            if self.worstFitness > fitn {
                 self.worstFitness = fitn
                 //self.worstWithFit = population[individ]
             }
@@ -74,13 +79,16 @@ class Population {
             rand = rand - 15
         }
         
-        var bestFit: Int = 100
+        //var bestFit: Int = 100
+        
+        var mostSteps: Int = 0
         
         for n in 0..<10 {
-            let fit = population[rand+n].fitness()
-            if bestFit > fit {
-                bestFit = fit
+            let step = population[rand+n].getStepsAchieved()
+            if mostSteps <= step {
+                mostSteps = step
                 parent = population[rand+n]
+                
             }
         }
         
@@ -98,14 +106,15 @@ class Population {
             let fatherChromo = father.getGene()
             let motherChromo = mother.getGene()
             
-            let split = Int.random(range: (0..<fatherChromo.count))
+            //let split = Int.random(range: (0..<fatherChromo.count))
+            let achievedPath = father.getStepsAchieved()
             var newGene : [NextStep] = []
             
-            for index in 0...split {
+            for index in 0...achievedPath {
                 newGene.append(fatherChromo[index])
             }
             
-            for index in split..<motherChromo.count {
+            for index in achievedPath..<motherChromo.count {
                 newGene.append(motherChromo[index])
             }
             
