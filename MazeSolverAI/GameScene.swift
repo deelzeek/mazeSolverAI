@@ -40,7 +40,7 @@ class GameScene: SKScene {
     
     override func sceneDidLoad() {
         createMaze()
-        createPopulation(number: 1000, mutation: 0.1)
+        createPopulation(number: 500, mutation: 0.1)
     }
     
     // MARK: Methods
@@ -122,7 +122,7 @@ class GameScene: SKScene {
             //print("node x: \(x), y: \(y)")
             
             //X is horizontal and Y is vertical line. Start point is left-bottom.
-            self.mazeArrRep?[x][y] = 0
+            self.mazeArrRep?[x][y] = ROAD
             
             /*
              Create a maze sprite node and place the sprite at the correct
@@ -226,14 +226,16 @@ class GameScene: SKScene {
             
             if x != closestX && y != closestY {
                 if let mazeNode = spriteNodes[x][y] {
-                    mazeNode.run(
-                        SKAction.sequence(
-                            [SKAction.colorize(with: SKColor.gray, colorBlendFactor: 1, duration: 0),
-                             SKAction.wait(forDuration: actionDelay),
-                             SKAction.colorize(with: SKColor.white, colorBlendFactor: 1, duration: 0),
-                             SKAction.colorize(with: SKColor.lightGray, colorBlendFactor: 1, duration: 0)]
-                        )
-                    )
+                    mazeNode.run(SKAction.sequence(
+                        [SKAction.colorize(with: SKColor.gray, colorBlendFactor: 1, duration: 0),
+                         SKAction.wait(forDuration: actionDelay),
+                         SKAction.colorize(with: SKColor.white, colorBlendFactor: 1, duration: 0),
+                         SKAction.colorize(with: SKColor.gray, colorBlendFactor: 1, duration: 0)]
+                    ), completion: {
+                        _ in
+                        print("⚫️")
+                    })
+                    
                 }
             } else {
                 if let mazeNode = spriteNodes[x][y] {
@@ -266,10 +268,10 @@ class GameScene: SKScene {
     private func arrayReprOfMaze() -> Array<Array<Int>> {
         var mazeCurrent = Array<Array<Int>>()
         
-        for _ in 0..<9 {
+        for _ in 0..<MAZE_HORIZONRAL_LIMIT {
             var arr = Array<Int>()
-            for _ in 0..<9 {
-                arr.append(1)
+            for _ in 0..<MAZE_HORIZONRAL_LIMIT {
+                arr.append(WALL)
             }
             mazeCurrent.append(arr)
         }

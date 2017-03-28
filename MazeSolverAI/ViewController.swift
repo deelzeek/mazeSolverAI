@@ -24,6 +24,8 @@ class ViewController: NSViewController {
     @IBOutlet var bestFitnessLabel: NSTextField!
     @IBOutlet var worstFitness: NSTextField!
     @IBOutlet var fittestCoor: NSTextField!
+    @IBOutlet var newMazeButton: NSButton!
+    @IBOutlet var solveButton: NSButton!
     
     var individium : Individual?
     //var pop : Population?
@@ -52,15 +54,16 @@ class ViewController: NSViewController {
             view.ignoresSiblingOrder = true
             view.wantsLayer = true
             view.showsFPS = true
+            view.preferredFramesPerSecond = 24
         }
     }
     
     @IBAction func startAction(_ sender: Any) {
         startOn = true
         bingoLabel.isHidden = true
-        //pop = nil
-        //pop = Population(number: Int(self.populationSlider.intValue), mutationLevel: 0.1, levelPeaks: LevelPeaks(level: level!), level: level!)
-        let queue = DispatchQueue(label: "com.plovlover.deel", qos: .userInitiated)
+        
+        let queue = DispatchQueue(label: "com.plovlover.deel", qos: .userInitiated, attributes: .concurrent)
+        //let mainQueue = DispatchQueue.main //DispatchQueue(label: "com.plovlover.love", qos: .userInitiated)
         
         queue.async {
             while self.startOn {
@@ -70,28 +73,33 @@ class ViewController: NSViewController {
                     let x  = fittest.getSuccessTil().x
                     let y = fittest.getSuccessTil().y
                     
-                    
-                    if x == 8 && y == 0 {
+                    print("🔵")
+                    if x == DESTINATION_X && y == DESTINATION_Y {
                         self.startOn = false
                         self.bingoLabel.isHidden = false
+                    
                     }
-                    DispatchQueue.main.sync {
+                    
+                    DispatchQueue.main.async {
                         self.generationLabel.stringValue = "Generation #\(self.generation)"
                         self.bestFitnessLabel.stringValue = "Best fitness: \(bestie)"
                         self.worstFitness.stringValue = "Worst fitness: \(worstie)"
                         self.fittestCoor.stringValue = "x:\(fittest.getSuccessTil().x), y: \(fittest.getSuccessTil().y)"
+                        print("🔴")
                         self.scene?.drawFittest(fittest)
-                        
                     }
-
+                    
+                   
                     
                 })
                 
                 self.generation = self.generation + 1
             }
         }
-        
 
+        
+        solveButton.isEnabled = false
+        newMazeButton.isEnabled = false
         stopButton.isEnabled = true
         startButton.isEnabled = false
     }
@@ -102,6 +110,8 @@ class ViewController: NSViewController {
         startButton.isEnabled = true
         stopButton.isEnabled = false
         bingoLabel.isHidden = true
+        solveButton.isEnabled = true
+        newMazeButton.isEnabled = true
         //scene?.updateMaze(level!)
     }
     

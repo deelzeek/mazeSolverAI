@@ -33,8 +33,20 @@ enum NextStep: Int {
     case North = 0, South = 1, East = 2 , West =  3, Stay = 4
 }
 
-let MAX_MOVES = 60
+//Amount of chromosomes
+let MAX_MOVES = 100
 
+//Destination point
+let DESTINATION_Y = 0
+let DESTINATION_X = 8
+
+//Range limits of the maze
+let MAZE_HORIZONRAL_LIMIT = 9
+
+//Maze ROAD and WALL values
+
+let WALL = 1
+let ROAD = 0
 
 
 

@@ -83,7 +83,7 @@ class Individual {
         
         pathTemp.append(startPosition)
         
-        for current in 0..<gene.genes.count-1 {
+        for current in 1..<gene.genes.count {
             //let random = Int.random(range: Range(0...3))
             //let yRandom = Int.random(range: (0..3))
             
@@ -106,15 +106,16 @@ class Individual {
             let lastX = pathTemp.last?.x
             let lastY = pathTemp.last?.y
             
-            if lastX! + xMove == -1 || lastY! + yMove == -1 || lastX! + xMove == 9 || lastX! + xMove == 9 {
-                pathTemp.append(Coordinate(lastX!, lastY!))
-            } else {
+//            if lastX! + xMove == -1 || lastY! + yMove == -1 || lastX! + xMove == 9 || lastY! + yMove == 9 {
+//                pathTemp.append(Coordinate(lastX!, lastY!))
+//            } else {
                 pathTemp.append(Coordinate(lastX! + xMove, lastY! + yMove))
-            }
+//            }
             
         }
         
         self.path = pathTemp
+        
     }
     
     public func getGene() -> [NextStep] {
@@ -134,19 +135,19 @@ class Individual {
             let pathX = Int(self.path[num].x)
             let pathY = Int(self.path[num].y)
             if pathX != prevX || pathY != prevY {
-                if (pathX < columns) && (pathY < rows) {
+                if (pathX < columns) && (pathY < rows) && (pathX >= 0) && (pathY >= 0){
                     if let mazeRow: Int = maze[pathX][pathY] {
                         if mazeRow == 0 {
                             self.bestFit(coor: path[num], step: num)
                             prevX = pathX
                             prevY = pathY
                         } else if mazeRow == 1 {
-                            return
+                            break
                         }
                     }
                 } else {
                     //self.successTil = temp
-                    return
+                    break
                 }
             } else {
                 return
@@ -163,10 +164,21 @@ class Individual {
 //        if vacant < champ {
 //            self.successTil = coor
 //        }
-        if self.steps <= step {
-            self.steps = step
-            self.successTil = coor
-        }
+        //If the individual is on the right X or Y-axis then choose success by distance
+//        if coor.x == DESTINATION_X || coor.y == DESTINATION_Y {
+//                let champ = fitness()
+//                let vacant = fitness(coor: coor)
+//                if vacant < champ {
+//                    self.successTil = coor
+//                }
+//            //self.successTil = coor
+//        } else {
+            if self.steps <= step {
+                self.steps = step
+                self.successTil = coor
+            }
+        //}
+        
     }
     
     
