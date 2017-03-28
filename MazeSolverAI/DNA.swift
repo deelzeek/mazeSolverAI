@@ -24,9 +24,15 @@ class DNA {
     }
     
     public func mutate() {
-        let randChrome = Int.random(range: (0..<genes.count))
-        let randNextStep = Int.random(range: (0..<5))
-        self.genes[randChrome] = NextStep(rawValue: randNextStep)!
+        for n in 0..<genes.count {
+            let randChrome = Int.random(range: 0..<1000)
+            if randChrome < 10 {
+                let randNextStep = Int.random(range: (0..<5))
+                self.genes[n] = NextStep(rawValue: randNextStep)!
+                //print("MUTANT KURWA")
+            }
+            
+        }
         
     }
     
@@ -64,40 +70,41 @@ class DNA {
 //                chromosomes.append(NextStep.Stay)
 //            }
             let chromo = randomChromosome()
+            chromosomes.append(chromo)
             
-            switch chromo {
-            case NextStep.North:
-                
-                if chromosomes[i-1] == NextStep.South {
-                    chromosomes.append(NextStep.South)
-                } else {
-                    chromosomes.append(chromo)
-                }
-            case NextStep.South:
-                
-                if chromosomes[i-1] == NextStep.North {
-                    chromosomes.append(NextStep.North)
-                } else {
-                    chromosomes.append(chromo)
-                }
-            case NextStep.East:
-                
-                if chromosomes[i-1] == NextStep.West {
-                    chromosomes.append(NextStep.West)
-                } else {
-                    chromosomes.append(chromo)
-                }
-            case NextStep.West:
-                
-                if chromosomes[i-1] == NextStep.East {
-                    chromosomes.append(NextStep.East)
-                } else {
-                    chromosomes.append(chromo)
-                }
-            default:
-                
-                chromosomes.append(chromo)
-            }
+//            switch chromo {
+//            case NextStep.North:
+//                
+//                if chromosomes[i-1] == NextStep.South {
+//                    chromosomes.append(NextStep.South)
+//                } else {
+//                    chromosomes.append(chromo)
+//                }
+//            case NextStep.South:
+//                
+//                if chromosomes[i-1] == NextStep.North {
+//                    chromosomes.append(NextStep.North)
+//                } else {
+//                    chromosomes.append(chromo)
+//                }
+//            case NextStep.East:
+//                
+//                if chromosomes[i-1] == NextStep.West {
+//                    chromosomes.append(NextStep.West)
+//                } else {
+//                    chromosomes.append(chromo)
+//                }
+//            case NextStep.West:
+//                
+//                if chromosomes[i-1] == NextStep.East {
+//                    chromosomes.append(NextStep.East)
+//                } else {
+//                    chromosomes.append(chromo)
+//                }
+//            default:
+//                
+//                chromosomes.append(chromo)
+//            }
             
         }
         

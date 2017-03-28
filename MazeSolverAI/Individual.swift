@@ -28,7 +28,7 @@ class Individual {
     private var successTil: Coordinate
     private var startPosition: Coordinate
     private var destination: Coordinate
-    private var steps:Int = 0
+    //private var steps:Int = 0
     
     init(mutaLevel: Double, start: Coordinate, dest: Coordinate) {
         self.gene = DNA(mutationLevel: mutaLevel)
@@ -49,9 +49,9 @@ class Individual {
         
     }
     
-    public func getStepsAchieved() -> Int {
-        return self.steps
-    }
+//    public func getStepsAchieved() -> Int {
+//        return self.steps
+//    }
 
     
     public func getPath() -> [Coordinate] {
@@ -128,19 +128,19 @@ class Individual {
         let columns = maze.count
         let rows = maze.count
         
-        var prevX = path[0].x
-        var prevY = path[0].y
+        //var prevX = path[0].x
+        //var prevY = path[0].y
         
-        for num in 1..<path.count {
+        for num in 0..<path.count {
             let pathX = Int(self.path[num].x)
             let pathY = Int(self.path[num].y)
-            if pathX != prevX || pathY != prevY {
+            //if pathX != prevX || pathY != prevY {
                 if (pathX < columns) && (pathY < rows) && (pathX >= 0) && (pathY >= 0){
                     if let mazeRow: Int = maze[pathX][pathY] {
                         if mazeRow == 0 {
                             self.bestFit(coor: path[num], step: num)
-                            prevX = pathX
-                            prevY = pathY
+//                            prevX = pathX
+//                            prevY = pathY
                         } else if mazeRow == 1 {
                             break
                         }
@@ -149,9 +149,9 @@ class Individual {
                     //self.successTil = temp
                     break
                 }
-            } else {
-                return
-            }
+//            } else {
+//                return
+//            }
            
         }
         
@@ -159,11 +159,12 @@ class Individual {
     }
     
     private func bestFit(coor: Coordinate, step: Int) {
-//        let champ = fitness()
-//        let vacant = fitness(coor: coor)
-//        if vacant < champ {
-//            self.successTil = coor
-//        }
+        let champ = fitness()
+        let vacant = fitness(coor: coor)
+        if vacant < champ {
+            self.successTil = coor
+        }
+        
         //If the individual is on the right X or Y-axis then choose success by distance
 //        if coor.x == DESTINATION_X || coor.y == DESTINATION_Y {
 //                let champ = fitness()
@@ -173,10 +174,13 @@ class Individual {
 //                }
 //            //self.successTil = coor
 //        } else {
-            if self.steps <= step {
-                self.steps = step
-                self.successTil = coor
-            }
+        //SEPARATE
+//            if self.steps <= step {
+//                self.steps = step
+//                self.successTil = coor
+        //DO TUTAJ
+        
+//            }
         //}
         
     }

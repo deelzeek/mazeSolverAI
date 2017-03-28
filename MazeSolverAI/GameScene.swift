@@ -224,7 +224,9 @@ class GameScene: SKScene {
             let x = indi.getPath()[n].x
             let y = indi.getPath()[n].y
             
-            if x != closestX && y != closestY {
+            if x < 0 || y < 0 || x > 8 || y > 8  {
+                return
+            } else if x != closestX && y != closestY {
                 if let mazeNode = spriteNodes[x][y] {
                     mazeNode.run(SKAction.sequence(
                         [SKAction.colorize(with: SKColor.gray, colorBlendFactor: 1, duration: 0),
