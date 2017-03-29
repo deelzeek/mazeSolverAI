@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1618A8AA1E807EED00CE4939 /* mazeone.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1618A8A91E807EED00CE4939 /* mazeone.txt */; };
-		1618A8AC1E8083C500CE4939 /* mazetwo.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1618A8AB1E8083C500CE4939 /* mazetwo.txt */; };
-		1618A8AE1E808AEB00CE4939 /* mazethree.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1618A8AD1E808AEB00CE4939 /* mazethree.txt */; };
 		1618A8B31E80A31D00CE4939 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1618A8B21E80A31D00CE4939 /* Constants.swift */; };
 		1618A8B51E813BFF00CE4939 /* DNA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1618A8B41E813BFF00CE4939 /* DNA.swift */; };
 		1618A8B71E813D8800CE4939 /* Population.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1618A8B61E813D8800CE4939 /* Population.swift */; };
@@ -38,9 +35,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1618A8A91E807EED00CE4939 /* mazeone.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mazeone.txt; sourceTree = "<group>"; };
-		1618A8AB1E8083C500CE4939 /* mazetwo.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mazetwo.txt; sourceTree = "<group>"; };
-		1618A8AD1E808AEB00CE4939 /* mazethree.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = mazethree.txt; sourceTree = "<group>"; };
 		1618A8B21E80A31D00CE4939 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		1618A8B41E813BFF00CE4939 /* DNA.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DNA.swift; sourceTree = "<group>"; };
 		1618A8B61E813D8800CE4939 /* Population.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Population.swift; sourceTree = "<group>"; };
@@ -80,16 +74,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1618A8AF1E808BAA00CE4939 /* MazeMap */ = {
-			isa = PBXGroup;
-			children = (
-				1618A8A91E807EED00CE4939 /* mazeone.txt */,
-				1618A8AB1E8083C500CE4939 /* mazetwo.txt */,
-				1618A8AD1E808AEB00CE4939 /* mazethree.txt */,
-			);
-			name = MazeMap;
-			sourceTree = "<group>";
-		};
 		1618A8B01E808BC800CE4939 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,7 +124,6 @@
 				16EC57471E884FBA001F234E /* Actions.sks */,
 				165F7E771E803B7000D067E9 /* Main.storyboard */,
 				165F7E8E1E80465100D067E9 /* MazeTileSet.sks */,
-				1618A8AF1E808BAA00CE4939 /* MazeMap */,
 			);
 			path = MazeSolverAI;
 			sourceTree = "<group>";
@@ -257,13 +240,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1618A8AE1E808AEB00CE4939 /* mazethree.txt in Resources */,
 				165F7E8F1E80465100D067E9 /* MazeTileSet.sks in Resources */,
-				1618A8AC1E8083C500CE4939 /* mazetwo.txt in Resources */,
 				16EC57481E884FBA001F234E /* Actions.sks in Resources */,
 				165F7E6E1E803B7000D067E9 /* GameScene.sks in Resources */,
 				165F7E761E803B7000D067E9 /* Assets.xcassets in Resources */,
-				1618A8AA1E807EED00CE4939 /* mazeone.txt in Resources */,
 				165F7E791E803B7000D067E9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

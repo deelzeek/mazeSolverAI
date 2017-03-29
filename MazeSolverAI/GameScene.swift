@@ -40,7 +40,7 @@ class GameScene: SKScene {
     
     override func sceneDidLoad() {
         createMaze()
-        createPopulation(number: 500, mutation: 0.1)
+        createPopulation(number: 500, mutation: 10)
     }
     
     // MARK: Methods
@@ -81,7 +81,7 @@ class GameScene: SKScene {
     }
     
     
-    public func newMaze(population: Int, mutation: Double) {
+    public func newMaze(population: Int, mutation: Int) {
         createMaze()
         createPopulation(number: population, mutation: mutation)
     }
@@ -145,7 +145,6 @@ class GameScene: SKScene {
             spriteNodes[x][y] = mazeNode
         }
         
-       // print("mazeReps: \(self.mazeArrRep)")
         
         
         // Grab the coordinates of the start and end maze sprite nodes.
@@ -201,7 +200,7 @@ class GameScene: SKScene {
         }
     }
     
-    public func start(completion:@escaping ((_ finished: Bool, _ fittest : Individual, _ bestFitness: Int, _ worstFitness: Int)->())) {
+    public func start(completion:@escaping ((_ finished: Bool, _ fittest : Individual, _ bestFitness: Float, _ worstFitness: Float)->())) {
         self.population?.start({
             (finished, fittest, bestie, worstie) in
             //self.drawFittest(fittest)
@@ -213,42 +212,29 @@ class GameScene: SKScene {
     
     public func drawFittest(_ indi: Individual) {
         
-        //generateMazeNodes()
-        
         let closestX = indi.getSuccessTil().x
         let closestY = indi.getSuccessTil().y
-        
-        let actionDelay: TimeInterval = 0
+
         
         for n in 1..<indi.getPath().count {
             let x = indi.getPath()[n].x
             let y = indi.getPath()[n].y
             
-            if x < 0 || y < 0 || x > 8 || y > 8  {
+            if x < DESTINATION_Y || y < DESTINATION_Y || x > DESTINATION_X || y > DESTINATION_X  {
                 return
             } else if x != closestX && y != closestY {
                 if let mazeNode = spriteNodes[x][y] {
                     mazeNode.run(SKAction.sequence(
-                        [SKAction.colorize(with: SKColor.gray, colorBlendFactor: 1, duration: 0),
-                         SKAction.wait(forDuration: actionDelay),
-                         SKAction.colorize(with: SKColor.white, colorBlendFactor: 1, duration: 0),
-                         SKAction.colorize(with: SKColor.gray, colorBlendFactor: 1, duration: 0)]
-                    ), completion: {
-                        _ in
-                        print("⚫️")
-                    })
+                        [SKAction.colorize(with: SKColor.white, colorBlendFactor: 1, duration: 0)]
+                    ))
                     
                 }
             } else {
                 if let mazeNode = spriteNodes[x][y] {
-                    mazeNode.run(
-                        SKAction.sequence(
-                            [SKAction.colorize(with: SKColor.gray, colorBlendFactor: 1, duration: 0),
-                             SKAction.wait(forDuration: actionDelay),
-                             SKAction.colorize(with: SKColor.white, colorBlendFactor: 1, duration: 0),
-                             SKAction.colorize(with: SKColor.lightGray, colorBlendFactor: 1, duration: 0)]
-                        )
-                    )
+                    mazeNode.run(SKAction.sequence(
+                        [SKAction.colorize(with: SKColor.white, colorBlendFactor: 1, duration: 0)]
+                        ))
+
                 }
                 return
             }
@@ -257,7 +243,7 @@ class GameScene: SKScene {
         
     }
     
-    func createPopulation(number ofPopulation: Int, mutation percent:Double) {
+    public func createPopulation(number ofPopulation: Int, mutation percent:Int) {
         // Grab the coordinates of the start and end maze sprite nodes.
         population = nil
         let startNodeX = Int(maze.startNode.gridPosition.x)

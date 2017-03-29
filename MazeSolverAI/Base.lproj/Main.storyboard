@@ -748,11 +748,14 @@
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="201" id="X6x-2y-vcS"/>
                                             </constraints>
-                                            <sliderCell key="cell" state="on" alignment="left" maxValue="1" tickMarkPosition="above" sliderType="linear" id="VKg-eh-V3Q"/>
+                                            <sliderCell key="cell" state="on" alignment="left" minValue="1" maxValue="1000" doubleValue="10" tickMarkPosition="above" allowsTickMarkValuesOnly="YES" sliderType="linear" id="VKg-eh-V3Q"/>
+                                            <connections>
+                                                <action selector="mutationSlidetAction:" target="XfG-lQ-9wD" id="UEy-Sc-nfz"/>
+                                            </connections>
                                         </slider>
                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SEN-ar-jrV">
-                                            <rect key="frame" x="88" y="184" width="58" height="17"/>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Mutation" id="6Ea-AQ-HdL">
+                                            <rect key="frame" x="72" y="184" width="90" height="17"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Mutation: 0.01" id="6Ea-AQ-HdL">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlLightHighlightColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>

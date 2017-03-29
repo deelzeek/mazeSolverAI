@@ -38,16 +38,21 @@ let MAX_MOVES = 100
 
 //Destination point
 let DESTINATION_Y = 0
-let DESTINATION_X = 8
+let DESTINATION_X = 14
 
 //Range limits of the maze
-let MAZE_HORIZONRAL_LIMIT = 9
+let MAZE_HORIZONRAL_LIMIT = 15
 
 //Maze ROAD and WALL values
 
 let WALL = 1
 let ROAD = 0
 
+let AMOUNT_OF_CANDITS_FOR_PARENT = 10
+let FIND_PARENT_LESS = 25
+let FRAMES_PER_SEC = 24
 
+let QUEUE_NAME = "com.plovlover.geneticAlgo"
+let GAME_SCENE_NAME = "GameScene"
 
 

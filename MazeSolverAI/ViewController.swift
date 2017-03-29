@@ -43,7 +43,7 @@ class ViewController: NSViewController {
         
         if let view = self.skView {
             // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
+            if let scene = SKScene(fileNamed: GAME_SCENE_NAME) {
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
                 self.scene = scene as! GameScene
@@ -54,7 +54,7 @@ class ViewController: NSViewController {
             view.ignoresSiblingOrder = true
             view.wantsLayer = true
             view.showsFPS = true
-            view.preferredFramesPerSecond = 24
+            view.preferredFramesPerSecond = FRAMES_PER_SEC
         }
     }
     
@@ -62,10 +62,10 @@ class ViewController: NSViewController {
         startOn = true
         bingoLabel.isHidden = true
         
-        let queue = DispatchQueue(label: "com.plovlover.deel", qos: .userInitiated, attributes: .concurrent)
+        //let queue = DispatchQueue(label: QUEUE_NAME, qos: .userInitiated, attributes: .concurrent)
         //let mainQueue = DispatchQueue.main //DispatchQueue(label: "com.plovlover.love", qos: .userInitiated)
         
-        queue.async {
+        DispatchQueue.global().async {
             while self.startOn {
                 self.scene?.start(completion: {
                     (finished, fittest, bestie, worstie) in
@@ -73,20 +73,21 @@ class ViewController: NSViewController {
                     let x  = fittest.getSuccessTil().x
                     let y = fittest.getSuccessTil().y
                     
-                    print("🔵")
-                    if x == DESTINATION_X && y == DESTINATION_Y {
-                        self.startOn = false
-                        self.bingoLabel.isHidden = false
                     
-                    }
-                    
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.sync {
                         self.generationLabel.stringValue = "Generation #\(self.generation)"
                         self.bestFitnessLabel.stringValue = "Best fitness: \(bestie)"
                         self.worstFitness.stringValue = "Worst fitness: \(worstie)"
                         self.fittestCoor.stringValue = "x:\(fittest.getSuccessTil().x), y: \(fittest.getSuccessTil().y)"
-                        print("🔴")
+
                         self.scene?.drawFittest(fittest)
+                        
+                    }
+                    
+                    if x == DESTINATION_X && y == DESTINATION_Y {
+                        self.startOn = false
+                        self.bingoLabel.isHidden = false
+                        
                     }
                     
                    
@@ -112,11 +113,13 @@ class ViewController: NSViewController {
         bingoLabel.isHidden = true
         solveButton.isEnabled = true
         newMazeButton.isEnabled = true
+        self.scene?.createPopulation(number: Int(self.populationSlider.intValue), mutation: Int(self.mutationSlider.intValue))
+        //self.scene?.generateMazeNodes()
         //scene?.updateMaze(level!)
     }
     
     @IBAction func newMazeAction(_ sender: Any) {
-        self.scene?.newMaze(population: Int(self.populationSlider.intValue), mutation: 0.1)
+        self.scene?.newMaze(population: Int(self.populationSlider.intValue), mutation: Int(self.mutationSlider.intValue))
     }
     
     @IBAction func solveAction(_ sender: Any) {
@@ -127,6 +130,12 @@ class ViewController: NSViewController {
     @IBAction func sliderAction(_ sender: NSSlider) {
         let currentValue = sender.intValue
         self.populationText.stringValue = "Population: \(currentValue)"
+    }
+    @IBAction func mutationSlidetAction(_ sender: NSSlider) {
+        let currentValue = sender.floatValue
+        let value = currentValue/Float(1000)
+        print(Int(self.mutationSlider.intValue))
+        self.mutationText.stringValue = "Mutation: \(value)"
     }
     
     override func awakeFromNib() {

@@ -17,7 +17,7 @@ class Maze {
      
      - Note: This value must be odd.
      */
-    static let dimensions = 9
+    static let dimensions = 15
     
     /// A grid-based graph representing the navigability space of the maze.
     var graph: GKGridGraph<GKGridGraphNode>
@@ -35,6 +35,7 @@ class Maze {
     var solutionPath: [GKGridGraphNode]? {
         // Calculate a solution path to the maze.
         let solution = graph.findPath(from: startNode, to: endNode) as! [GKGridGraphNode]
+        
         
         /*
          If the solution path is not empty, return the path. Otherwise,

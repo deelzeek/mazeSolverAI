@@ -92,27 +92,6 @@ class MazeBuilder {
     
     // MARK: Methods
     
-    /**
-     Returns an array of maze graph nodes representing walls in the maze.
-     These nodes are to be removed from the pathfinding graph, since walls
-     are impassible.
-     
-     This maze generation algorithm uses a depth-first search (DFS).
-     It uses a stack to track its progress through the maze, and an array
-     to check how much of the maze it has visited. It works like this:
-     the starting node is added to the stack and array. The algorithm
-     selects a node neighboring the top node of the stack (the starting
-     node, in this case). It then removes the wall separating those two
-     nodes, and adds the neighboring node to the stack and array. This
-     process continues until the top node of the stack has no unvisited
-     neighbors. When what happens, the algorithm removes nodes from the
-     stack until the top node has an unvisited neighbor, and the process
-     continues. Eventually the entire maze will have been visited, the
-     stack will be empty, and the maze is created.
-     
-     Instead of removing walls directly, this method keeps track of
-     which walls need to be removed, and returns those nodes.
-     */
     func mazeWallsForRemoval() -> [GKGridGraphNode] {
         // First, add all of the potential walls to the array of walls.
         wallNodes += potentialWalls

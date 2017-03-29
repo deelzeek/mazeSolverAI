@@ -13,9 +13,9 @@ class Population {
     
     var populationAmount: Int
     var population: [Individual] = []
-    var mutationLevel: Double
-    var fitness = 100
-    var worstFitness = 0
+    var mutationLevel: Int
+    var fitness: Float = 100.0
+    var worstFitness: Float = 0.0
     var bestWithFit : Individual?
     var worstWithFit: Individual?
     var startPos: Coordinate!
@@ -24,7 +24,7 @@ class Population {
     var mazeCurrent: Array<Array<Int>>!
 
     
-    init(number ofPopulation:Int, mutationLevel: Double, startPos: Coordinate, endPos: Coordinate, maze: Array<Array<Int>>) {
+    init(number ofPopulation:Int, mutationLevel: Int, startPos: Coordinate, endPos: Coordinate, maze: Array<Array<Int>>) {
         self.populationAmount = ofPopulation
         self.mutationLevel = mutationLevel
         self.startPos = startPos
@@ -47,7 +47,7 @@ class Population {
         }
     }
     
-    public func start(_ completion:@escaping ((_ finished: Bool, _ fittest : Individual, _ bestFitness: Int, _ worstFitness: Int)->())) {
+    public func start(_ completion:@escaping ((_ finished: Bool, _ fittest : Individual, _ bestFitness: Float, _ worstFitness: Float)->())) {
 
 
         for individ in 0..<populationAmount {
@@ -76,17 +76,17 @@ class Population {
     func findParent() -> Individual {
         var parent : Individual?
         var rand = Int.random(range: (0..<populationAmount))
-        if rand > (populationAmount - 35) {
-            rand = rand - 35
+        if rand > (populationAmount - FIND_PARENT_LESS) {
+            rand = rand - FIND_PARENT_LESS
         }
         
-        var bestFit: Int = 100
+        var bestFit: Float = 100.0
         
         //var mostSteps: Int = 0
         
-        for n in 0..<20 {
+        for n in 0..<AMOUNT_OF_CANDITS_FOR_PARENT {
             let distanceToDest = population[rand+n].fitness()
-            //let step = population[rand+n].getStepsAchieved()
+            let step = Float(population[rand+n].getStepsAchieved())
             
             if bestFit > distanceToDest {
                 bestFit = distanceToDest
@@ -102,6 +102,7 @@ class Population {
 
     public func crossover(completion: ((_ finished:Bool) -> ())) {
         var newPopulation : [Individual] = []
+        
         for _ in 0..<populationAmount {
             let father : Individual = findParent()
             let mother : Individual = findParent()
@@ -110,10 +111,6 @@ class Population {
             let motherChromo = mother.getGene()
             
             let split = Int.random(range: (0..<fatherChromo.count))
-            //let split2 = Int.random(range: (split..<fatherChromo.count))
-            //let split3 = Int.random(range: (split2..<fatherChromo.count))
-            //let padreAchievedPath = father.getStepsAchieved()
-            //let madreAchievedPath = mother.getStepsAchieved()
             
             var newGene : [NextStep] = []
             
@@ -125,47 +122,14 @@ class Population {
                 newGene.append(motherChromo[index])
             }
             
-            let offspring: Individual = Individual(newDna: DNA(mutationLevel: 0.1, chromosomes: newGene), start:  startPos, dest: endPos)
+            let offspring: Individual = Individual(newDna: DNA(mutationLevel: self.mutationLevel, chromosomes: newGene), start:  startPos, dest: endPos)
             offspring.mutate()
             newPopulation.append(offspring)
             
-            //print("dad: \(padreAchievedPath), madre: \(madreAchievedPath)")
-//            if padreAchievedPath > madreAchievedPath {
-//                var newGene : [NextStep] = []
-//                
-//                for index in 0..<split {
-//                    newGene.append(fatherChromo[index])
-//                }
-//                
-//                for index in split..<split2 {
-//                    newGene.append(motherChromo[index])
-//                }
-//                
-//                for index in split2..<motherChromo.count {
-//                    newGene.append(fatherChromo[index])
-//                }
-//                
-//                let offspring: Individual = Individual(newDna: DNA(mutationLevel: 0.1, chromosomes: newGene), start:  startPos, dest: endPos)
-//                offspring.mutate()
-//                newPopulation.append(offspring)
-//            } else {
-//                var newGene : [NextStep] = []
-//                
-//                for index in 0..<madreAchievedPath {
-//                    newGene.append(motherChromo[index])
-//                }
-//                
-//                for index in madreAchievedPath..<motherChromo.count {
-//                    newGene.append(fatherChromo[index])
-//                }
-//                
-//                let offspring: Individual = Individual(newDna: DNA(mutationLevel: 0.1, chromosomes: newGene), start:  startPos, dest: endPos)
-//                offspring.mutate()
-//                newPopulation.append(offspring)
-//            }
             
             
         }
+        
         self.population.removeAll()
         self.population = newPopulation
         

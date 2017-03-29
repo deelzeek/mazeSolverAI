@@ -28,14 +28,14 @@ class Individual {
     private var successTil: Coordinate
     private var startPosition: Coordinate
     private var destination: Coordinate
-    //private var steps:Int = 0
+    private var steps:Int = 0
     
-    init(mutaLevel: Double, start: Coordinate, dest: Coordinate) {
+    init(mutaLevel: Int, start: Coordinate, dest: Coordinate) {
         self.gene = DNA(mutationLevel: mutaLevel)
         self.startPosition = start
         self.successTil = start
         self.destination = dest
-        //print("Chromos: \(gene.genes)")
+    
         pathCreator()
     }
     
@@ -44,14 +44,14 @@ class Individual {
         self.destination = dest
         self.startPosition = start
         self.successTil = start
-        //print("Chromos: \(gene.genes)")
+      
         pathCreator()
         
     }
     
-//    public func getStepsAchieved() -> Int {
-//        return self.steps
-//    }
+    public func getStepsAchieved() -> Int {
+        return self.steps
+    }
 
     
     public func getPath() -> [Coordinate] {
@@ -70,12 +70,12 @@ class Individual {
         return self.successTil
     }
     
-    public func fitness() -> Int {
-        return Int(sqrt(pow(Double(successTil.x - destination.x), 2) + pow(Double(successTil.y - destination.y), 2)))
+    public func fitness() -> Float {
+        return Float(sqrt(pow(Double(successTil.x - destination.x), 2) + pow(Double(successTil.y - destination.y), 2)))
     }
     
-    public func fitness(coor: Coordinate) -> Int {
-        return Int(sqrt(pow(Double(coor.x - destination.x), 2) + pow(Double(coor.y - destination.y), 2)))
+    public func fitness(coor: Coordinate) -> Float {
+        return Float(sqrt(pow(Double(coor.x - destination.x), 2) + pow(Double(coor.y - destination.y), 2)))
     }
     
     private func pathCreator() {
@@ -84,8 +84,6 @@ class Individual {
         pathTemp.append(startPosition)
         
         for current in 1..<gene.genes.count {
-            //let random = Int.random(range: Range(0...3))
-            //let yRandom = Int.random(range: (0..3))
             
             var xMove: Int = 0
             var yMove: Int = 0
@@ -106,11 +104,8 @@ class Individual {
             let lastX = pathTemp.last?.x
             let lastY = pathTemp.last?.y
             
-//            if lastX! + xMove == -1 || lastY! + yMove == -1 || lastX! + xMove == 9 || lastY! + yMove == 9 {
-//                pathTemp.append(Coordinate(lastX!, lastY!))
-//            } else {
-                pathTemp.append(Coordinate(lastX! + xMove, lastY! + yMove))
-//            }
+            pathTemp.append(Coordinate(lastX! + xMove, lastY! + yMove))
+
             
         }
         
@@ -127,32 +122,22 @@ class Individual {
         
         let columns = maze.count
         let rows = maze.count
-        
-        //var prevX = path[0].x
-        //var prevY = path[0].y
+
         
         for num in 0..<path.count {
             let pathX = Int(self.path[num].x)
             let pathY = Int(self.path[num].y)
-            //if pathX != prevX || pathY != prevY {
                 if (pathX < columns) && (pathY < rows) && (pathX >= 0) && (pathY >= 0){
                     if let mazeRow: Int = maze[pathX][pathY] {
                         if mazeRow == 0 {
                             self.bestFit(coor: path[num], step: num)
-//                            prevX = pathX
-//                            prevY = pathY
                         } else if mazeRow == 1 {
                             break
                         }
                     }
                 } else {
-                    //self.successTil = temp
                     break
                 }
-//            } else {
-//                return
-//            }
-           
         }
         
         
@@ -163,25 +148,9 @@ class Individual {
         let vacant = fitness(coor: coor)
         if vacant < champ {
             self.successTil = coor
+            self.steps = step
         }
         
-        //If the individual is on the right X or Y-axis then choose success by distance
-//        if coor.x == DESTINATION_X || coor.y == DESTINATION_Y {
-//                let champ = fitness()
-//                let vacant = fitness(coor: coor)
-//                if vacant < champ {
-//                    self.successTil = coor
-//                }
-//            //self.successTil = coor
-//        } else {
-        //SEPARATE
-//            if self.steps <= step {
-//                self.steps = step
-//                self.successTil = coor
-        //DO TUTAJ
-        
-//            }
-        //}
         
     }
     
